@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
 
 @Component({
@@ -7,18 +8,24 @@ import { AuthenticationService } from '../authentication.service';
   styleUrls: ['./user-signup.component.scss'],
 })
 export class UserSignupComponent implements OnInit {
-  public email!: string;
-  public password!: string;
+  public sendEmail!: string;
+  public sendPassword!: string;
+  public myForm!:FormGroup;
 
-  constructor(private authenticationService: AuthenticationService) {}
-
-  ngOnInit(): void {
-    this.SignUp();
+  constructor(private authenticationService: AuthenticationService,private fb:FormBuilder) {
+    this.myForm=this.fb.group({
+      email:[''],
+      password:['']
+    })
   }
 
-  public SignUp(): void {
-    this.email = 'tejasv.tagline@gmail.cosm';
-    this.password = '123456';
-    this.authenticationService.SignUp(this.email, this.password);
+  ngOnInit(): void {
+    // this.signUp();
+  }
+
+  public signUp(): void {
+    this.sendEmail=this.myForm.value.email;
+    this.sendPassword=this.myForm.value.password;
+    this.authenticationService.SignUp(this.sendEmail,this.sendPassword);
   }
 }

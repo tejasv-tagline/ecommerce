@@ -1,14 +1,16 @@
 <app-admin-header></app-admin-header>
-<div class="d-flex justify-content-between p-5">
-    <ng-container *ngFor="let option of adminOptions">
-        <div class="card">
-            <div class="card-body text-center">
-                <h5 class="card-title">{{option.title}}</h5>
-                <p class="card-text">{{option.text}}</p>
-                <button type="button" class="btn btn-primary"
-                    routerLink="/{{option.routerlink}}">{{option.button}}</button>
+<div class="container-fluid">
+    <div class="d-flex justify-content-between p-5">
+        <ng-container *ngFor="let option of adminOptions">
+            <div class="card custom-card-radius custom-card-shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{option.title}}</h5>
+                    <p class="card-text">{{option.text}}</p>
+                    <button type="button" class="btn styled-button custom-button-radius custom-button-shadow"
+                        routerLink="/{{option.routerlink}}">{{option.button}}</button>
+                </div>
             </div>
-        </div>
-    </ng-container>
+        </ng-container>
+    </div>
 </div>
 <app-footer></app-footer>

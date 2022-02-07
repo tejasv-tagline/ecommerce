@@ -9,12 +9,17 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 import { UserSignupComponent } from './user-signup/user-signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserLoginComponent } from './user-login/user-login.component';
-
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
     UserSignupComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +27,11 @@ import { UserLoginComponent } from './user-login/user-login.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    AngularFireDatabaseModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

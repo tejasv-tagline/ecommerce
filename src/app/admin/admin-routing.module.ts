@@ -9,12 +9,12 @@ import { ViewAllProductComponent } from './view-all-product/view-all-product.com
 
 const routes: Routes = [
   {
-    path:'dashboard',
-    component:DashboardComponent
-  },
-  {
     path:'login',
     component:UserLoginComponent
+  },
+  {
+    path:'dashboard',
+    component:DashboardComponent
   },
   {
     path:'profile',

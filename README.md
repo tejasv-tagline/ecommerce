@@ -25,3 +25,38 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Project folder structure
+ - App
+    * Core module
+        --> Header
+        --> Footer
+
+    * Auth module
+        --> Login 
+        --> Signup
+
+    * Admin module  
+        --> dashboard component
+        --> Add product component
+        --> View all product component
+        --> update product component
+        --> delete product
+        --> Orders folder
+                => Pending orders component
+                => successful orders component
+                => Return orders component
+
+    * Customer module
+        --> dashboard component -> display products category wise
+        --> profile & details component -> contact & address etc
+        --> Search result component
+                => Filters component --> side navigation bar 
+        --> View single product details component
+                => Show review & rating component
+                    =-> Rate product by stars & add reviews
+        --> cart component
+        --> payment page component
+        --> order details component
+            --> order tracking component
+

@@ -16,15 +16,31 @@ import { Observable } from 'rxjs';
 export class HomeComponent implements OnInit {
   public allData!: any;
   public showData=[];
+  public data2:any[]=[];
   // public tutorial: AngularFireObject<any>;
 
   constructor(private db: AngularFireDatabase) {
-    this.allData = this.db.database.ref('/departments');
-    // this.allData.on('value', (data: any) => {
-    //   console.log('data.val() :>> ', data.val());
-    //   data.val().forEach((element: any) => this.showData.push(element));
+    this.allData = this.db.database.ref('/product');
+    // this.allData.push({fname:'fname'})
 
+    this.allData.on('value', (data: any) => {
+      this.data2 = Object.keys(data.val()).map(key => {
+        return {
+          ...data.val()[key],
+          push_key: key
+        }
+      })
+    });
+  }
 
+  deleteProduct(){
+    console.log('data2 :>> ', this.data2);
+    const id :any = this.data2[0].push_key;
+
+    console.log('id :>> ', id);
+    const refPath = this.db.database.ref(`/product/${id}`);
+    refPath.remove();
+    // this.allData.dele
   }
 
   ngOnInit(): void {}

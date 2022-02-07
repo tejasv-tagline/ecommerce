@@ -9,6 +9,7 @@
         <input type="password" formControlName="password" class="form-control mt-3" placeholder="Enter password">
         <div *ngIf="fControl['password'].touched && fControl['password'].errors?.['required']" class="text-danger">Password is required</div>
         <div *ngIf="fControl['password'].touched && fControl['password'].errors?.['minlength']" class="text-danger">Minimum 6 character required</div>
+        <input type="text" formControlName="mobile" class="form-control mt-3" placeholder="Enter Mobile">
         <div class="text-center mt-3">
             <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Create Account</button>
         </div>

@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-user-signup',
-  templateUrl: './user-signup.component.html',
-  styleUrls: ['./user-signup.component.scss'],
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss']
 })
-export class UserSignupComponent implements OnInit {
+export class SignupComponent implements OnInit {
   public sendEmail!: string;
   public sendPassword!: string;
   public myForm!:FormGroup;
 
-  constructor(private authenticationService: AuthenticationService,private fb:FormBuilder,private router:Router) {
+  constructor(private authService:AuthService,private fb:FormBuilder,private router:Router) {
     this.myForm=this.fb.group({
       email:['',[Validators.required,Validators.email]],
       password:['',[Validators.required,Validators.minLength(6)]],
-      mobile:['']
+      // mobile:['']
     })
   }
 
@@ -29,10 +30,10 @@ export class UserSignupComponent implements OnInit {
   }
 
   public signUp(): void {
-    // const mobile=this.myForm.value.mobile;
+    // const contact=this.myForm.value.mobile;
     this.sendEmail=this.myForm.value.email;
     this.sendPassword=this.myForm.value.password;
-    this.authenticationService.SignUp(this.sendEmail,this.sendPassword);
+    this.authService.SignUp(this.sendEmail,this.sendPassword);
     // this.router.navigate(['login']);
   }
 }

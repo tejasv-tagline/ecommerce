@@ -13,6 +13,7 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
   ],
   imports: [
     CommonModule,
-  ]
+  ],
+  exports:[AdminHeaderComponent]
 })
 export class CoreModule { }

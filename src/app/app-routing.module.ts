@@ -4,13 +4,17 @@ import { UserSignupComponent } from './user-signup/user-signup.component';
 
 const routes: Routes = [
   {
-    path:'admin',
-    loadChildren:()=>import('../app/admin/admin.module').then(m=>m.AdminModule)
-  }
+    path: '',
+    loadChildren: () =>import('../app/auth/auth.module').then(m=>m.AuthModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>import('../app/admin/admin.module').then((m) => m.AdminModule),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

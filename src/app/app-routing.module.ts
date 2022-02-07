@@ -4,8 +4,8 @@ import { UserSignupComponent } from './user-signup/user-signup.component';
 
 const routes: Routes = [
   {
-    path:'',
-    component:UserSignupComponent
+    path:'admin',
+    loadChildren:()=>import('../app/admin/admin.module').then(m=>m.AdminModule)
   }
 ];
 

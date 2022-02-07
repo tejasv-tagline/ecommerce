@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CoreModule } from '../core/core.module';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

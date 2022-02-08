@@ -32,7 +32,7 @@ export class SignupComponent implements OnInit {
     // const contact=this.myForm.value.mobile;
     this.sendEmail=this.myForm.value.email;
     this.sendPassword=this.myForm.value.password;
-    this.authService.SignUp(this.sendEmail,this.sendPassword);
+    this.authService.signUp(this.sendEmail,this.sendPassword);
     // this.router.navigate(['login']);
   }
 }

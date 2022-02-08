@@ -9,8 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AuthService {
   public userData: any;
-  public allUsersData:any;
-  public singleUserData:any;
+  public allUsersData: any;
+  public singleUserData: any;
   // public userData!: Observable<firebase.User>;
   constructor(
     private angularFireAuth: AngularFireAuth,
@@ -21,7 +21,7 @@ export class AuthService {
     this.userData = angularFireAuth.authState;
   }
 
-  public SignUp(email: string, password: string): void {
+  public signUp(email: string, password: string): void {
     this.angularFireAuth
       .createUserWithEmailAndPassword(email, password)
       .then((res: any) => {
@@ -73,15 +73,17 @@ export class AuthService {
               };
             });
             // let data5=data2.find((e:any)=> e.email == email);
-            this.singleUserData=this.allUsersData.find((e:any)=>e.email==email)
-            if(this.singleUserData.role==='customer'){
+            this.singleUserData = this.allUsersData.find(
+              (e: any) => e.email == email
+            );
+            if (this.singleUserData.role === 'customer') {
+              localStorage.setItem('userid', this.singleUserData.push_key);
               this.router.navigate(['customer']);
-            }
-            else{
+            } else {
               this.router.navigate(['admin']);
             }
           });
-        
+
           this.toaster.success('Login successfull !');
         } else {
         }
@@ -91,6 +93,5 @@ export class AuthService {
       });
   }
 
-  public getData(): void {
-  }
+  public getData(): void {}
 }

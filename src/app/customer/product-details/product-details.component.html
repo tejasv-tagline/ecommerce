@@ -1,1 +1,27 @@
-<p>product-details works!</p>
+<div class="container-fluid p-5">
+    <div class="card">
+        <div class="row m-0 p-3">
+            <div class="col-sm-4 p-0">
+                <img class="card-img-top" src="../../../assets/product2.jpeg" alt="...">
+            </div>
+            <div class="col-sm-8">
+                <!-- <div class="d-flex justify-content-between p-3 pb-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a [routerLink]="['/customer/dashboard']">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Product</li>
+                        </ol>
+                    </nav>
+                    <p>share <i class="text-muted fas fa-share"></i></p>
+                </div> -->
+                <div class="card-body mt-0">
+                    <h1 class="card-title">{{productDetails?.title || ''}}</h1>
+                    <p class="card-text text-muted">{{productDetails?.price | currency:'INR' || ''}}</p>
+                    <p>Product details:</p>
+                    <li class="card-text text-muted">{{productDetails?.description || ''}}</li>
+                    <button class="btn btn-primary" (click)="addToCart()">Add to cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

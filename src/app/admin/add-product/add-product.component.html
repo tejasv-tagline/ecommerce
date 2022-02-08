@@ -1,3 +1,15 @@
 <app-admin-header></app-admin-header>
-<p>add-product works!</p>
+<div class="container-fluid w-100 d-flex justify-content-center mb-5">
+    <div class="c-card-body mt-5 text-center bg-transparent">
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="p-5">
+            <h2>Add new product</h2>
+            <input type="text" class="form-control mt-3" placeholder="Enter product name" formControlName="title">
+            <!-- <input type="text" class="form-control mt-3" placeholder="Enter product name" formControlName="description"> -->
+            <textarea formControlName="description" id="" class="form-control mt-3" placeholder="Enter product description"></textarea>
+            <input type="number" class="form-control mt-3" placeholder="Enter product price" formControlName="price">
+            <input type="number" class="form-control mt-3" placeholder="Enter product return period in days" formControlName="returnPeriod">
+            <button type="submit" class="btn btn-primary mt-3 c-button">Add Product</button>
+        </form>
+    </div>
+</div>
 <app-footer></app-footer>

@@ -31,8 +31,7 @@ export class UpdateProductComponent implements OnInit {
     this.basePath = this.db.database.ref('/products/' + this.pushKey);
     this.basePath.on('value', (data: any) => {
       this.formData = data.val();
-      debugger
-  this.setvalueForm();
+    this.setvalueForm();
 
     });
   }

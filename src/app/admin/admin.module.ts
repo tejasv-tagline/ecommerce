@@ -8,6 +8,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ViewAllProductComponent } from './view-all-product/view-all-product.component';
 import { UpdateProductComponent } from './update-product/update-product.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { UpdateProductComponent } from './update-product/update-product.componen
   imports: [
     CommonModule,
     AdminRoutingModule,
-    CoreModule
+    CoreModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

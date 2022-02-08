@@ -1,3 +1,33 @@
 <app-admin-header></app-admin-header>
-<p>view-all-product works!</p>
+<div class="p-5">
+  <div class="d-flex justify-content-between">
+    <h2>Showing all products </h2>
+    <button class="btn btn-danger" routerLink="/admin/dashboard"><i class="fas fa-backward me-1"></i>Back</button>
+  </div>
+  <table class="table table-bordered table-hover mt-3">
+    <thead>
+      <tr>
+        <th scope="col">Sr no</th>
+        <th scope="col">Product id</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">Return Period</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of allProduts;let i=index">
+        <th>{{i+1}}</th>
+        <td>{{product.push_key}}</td>
+        <td>{{product.title}}</td>
+        <td>{{product.description}}</td>
+        <td>{{product.price | currency:'INR'}}</td>
+        <td>{{product.returnPeriod}} Days</td>
+        <td><a class="far fa-edit" [routerLink]="['/admin/update-product/'+product.push_key]"></a></td>
+        <td><a class="far fa-trash-alt"></a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 <app-footer></app-footer>

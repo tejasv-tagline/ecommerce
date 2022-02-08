@@ -5,17 +5,23 @@ import { CustomerRoutingModule } from './customer-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CartComponent } from './cart/cart.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { CoreModule } from '../core/core.module';
+import { ProfileComponent } from './profile/profile.component';
+import { OrdersComponent } from './orders/orders.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     CartComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    ProfileComponent,
+    OrdersComponent,
   ],
   imports: [
     CommonModule,
-    CustomerRoutingModule
+    CustomerRoutingModule,
+    CoreModule
   ]
 })
 export class CustomerModule { }

@@ -14,6 +14,6 @@ export class AdminHeaderComponent implements OnInit {
   }
 
   public navigateDashBoard():void{
-    this.router.navigate(['/dashboard'])
+    this.router.navigate(['/admin/dashboard'])
   }
 }

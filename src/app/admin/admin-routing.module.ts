@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserLoginComponent } from '../user-login/user-login.component';
 import { AddProductComponent } from './add-product/add-product.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UpdateProductComponent } from './update-product/update-product.component';
 import { ViewAllProductComponent } from './view-all-product/view-all-product.component';
 
 const routes: Routes = [
   {
-    path:'login',
-    component:UserLoginComponent
+    path:'',
+    component:DashboardComponent
   },
   {
     path:'dashboard',
@@ -27,6 +27,10 @@ const routes: Routes = [
   {
     path:'view-all-product',
     component:ViewAllProductComponent
+  },
+  {
+    path:'update-product/:push_key',
+    component:UpdateProductComponent
   },
   {
     path:'orders',

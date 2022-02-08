@@ -46,7 +46,6 @@ export class AuthService {
       })
       .catch((err) => {
         this.toaster.error(err);
-        console.log('err :>> ', err);
       });
   }
 
@@ -60,7 +59,7 @@ export class AuthService {
             email: res.user?.multiFactor?.user?.email,
             role: 'admin',
           };
-          basePath.push(data);
+          // basePath.push(data);
           let allData: any;
           allData = this.db.database.ref('/users');
           let data2:any;
@@ -85,7 +84,6 @@ export class AuthService {
         }
       })
       .catch((err) => {
-        console.log('error is------ :>> ', err);
         this.toaster.error();
       });
   }

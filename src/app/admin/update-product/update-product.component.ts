@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AllProductList } from '../Interfaces/admin-common';
-import { CrudService } from '../Services/crud.service';
 
 @Component({
   selector: 'app-update-product',
@@ -25,7 +24,6 @@ export class UpdateProductComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private db: AngularFireDatabase,
     private fb: FormBuilder,
-    private crudService: CrudService
   ) {
     this.pushKey = this.activatedRoute.snapshot.params['push_key'];
     this.basePath = this.db.database.ref('/products/' + this.pushKey);

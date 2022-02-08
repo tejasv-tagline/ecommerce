@@ -6,19 +6,21 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ProductsResolver } from './resolver/products.resolver';
 
 const routes: Routes = [
   {
-    path:'',
-    component:CustomerComponent,
-    children:[
+    path: '',
+    component: CustomerComponent,
+    children: [
       {
-        path:'',
-        redirectTo:'dashboard',
-        pathMatch:'full'
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
       },
       {
         path: 'dashboard',
+        resolve: { productsResolver: ProductsResolver },
         component: DashboardComponent,
       },
       {
@@ -38,12 +40,11 @@ const routes: Routes = [
         component: ProductDetailsComponent,
       },
       {
-        path:'**',
-        redirectTo:'dashboard'
-      }
-    ]
-  }
-  
+        path: '**',
+        redirectTo: 'dashboard',
+      },
+    ],
+  },
 ];
 
 @NgModule({

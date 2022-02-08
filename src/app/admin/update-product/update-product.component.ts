@@ -31,15 +31,22 @@ export class UpdateProductComponent implements OnInit {
     this.basePath = this.db.database.ref('/products/' + this.pushKey);
     this.basePath.on('value', (data: any) => {
       this.formData = data.val();
+      debugger
+  this.setvalueForm();
+
     });
   }
 
   ngOnInit(): void {
+  this.setvalueForm();
+  }
+
+  setvalueForm(){
     this.myForm = this.fb.group({
-      title: [this.formData.title],
-      description: [this.formData.description],
-      price: [this.formData.price],
-      returnPeriod: [this.formData.returnPeriod],
+      title: [this.formData?.title || ''],
+      description: [this.formData?.description || ''],
+      price: [this.formData?.price || ''],
+      returnPeriod: [this.formData?.returnPeriod || ''],
     });
   }
 

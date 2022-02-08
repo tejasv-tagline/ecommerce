@@ -18,6 +18,6 @@ import { CustomerHeaderComponent } from './customer-header/customer-header.compo
     CommonModule,
     RouterModule
   ],
-  exports:[AdminHeaderComponent,FooterComponent]
+  exports:[AdminHeaderComponent,FooterComponent,CustomerHeaderComponent]
 })
 export class CoreModule { }

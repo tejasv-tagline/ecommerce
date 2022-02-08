@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   public myForm!:FormGroup;
   constructor(private fb:FormBuilder,private authService:AuthService,private toaster:ToastrService) {
     this.myForm=this.fb.group({
-      email:['tejas@admin.com',[Validators.required,Validators.email]],
+      email:['tejas@customer.com',[Validators.required,Validators.email]],
       password:['123456',[Validators.required,Validators.minLength(6)]],
     })
    }

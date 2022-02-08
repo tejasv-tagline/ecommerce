@@ -9,6 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AuthService {
   public userData: any;
+  public allUsersData:any;
+  public singleUserData:any;
   // public userData!: Observable<firebase.User>;
   constructor(
     private angularFireAuth: AngularFireAuth,
@@ -29,7 +31,7 @@ export class AuthService {
             const basePath = this.db.database.ref('/users');
             const data = {
               email: res.user?.multiFactor?.user?.email,
-              role: 'admin',
+              role: 'customer',
             };
             basePath.push(data);
             // console.log('res :>> ', res);
@@ -62,16 +64,17 @@ export class AuthService {
           // basePath.push(data);
           let allData: any;
           allData = this.db.database.ref('/users');
-          let data2:any;
+          // let data2:any;
           allData.on('value', (data: any) => {
-            data2 = Object.keys(data.val()).map((key) => {
+            this.allUsersData = Object.keys(data.val()).map((key) => {
               return {
                 ...data.val()[key],
                 push_key: key,
               };
             });
-            let data5=data2.find((e:any)=> e.email == email)
-            if(data5.role==='customer'){
+            // let data5=data2.find((e:any)=> e.email == email);
+            this.singleUserData=this.allUsersData.find((e:any)=>e.email==email)
+            if(this.singleUserData.role==='customer'){
               this.router.navigate(['customer']);
             }
             else{

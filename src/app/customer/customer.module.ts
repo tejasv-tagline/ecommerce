@@ -8,6 +8,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { CoreModule } from '../core/core.module';
 import { ProfileComponent } from './profile/profile.component';
 import { OrdersComponent } from './orders/orders.component';
+import { CustomerComponent } from './customer.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { OrdersComponent } from './orders/orders.component';
     ProductDetailsComponent,
     ProfileComponent,
     OrdersComponent,
+    CustomerComponent,
   ],
   imports: [
     CommonModule,

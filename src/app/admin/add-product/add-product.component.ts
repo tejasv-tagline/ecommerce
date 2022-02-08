@@ -11,7 +11,11 @@ import { ToastrService } from 'ngx-toastr';
 export class AddProductComponent implements OnInit {
   public myForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private db: AngularFireDatabase,private toaster:ToastrService) {
+  constructor(
+    private fb: FormBuilder,
+    private db: AngularFireDatabase,
+    private toaster: ToastrService
+  ) {
     this.myForm = this.fb.group({
       title: [''],
       description: [''],

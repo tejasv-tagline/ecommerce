@@ -5,12 +5,14 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
 import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { RouterModule } from '@angular/router';
+import { CustomerHeaderComponent } from './customer-header/customer-header.component';
 
 
 @NgModule({
   declarations: [
     FooterComponent,
-    AdminHeaderComponent
+    AdminHeaderComponent,
+    CustomerHeaderComponent
   ],
   imports: [
     CommonModule,

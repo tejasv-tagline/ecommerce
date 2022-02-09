@@ -13,38 +13,35 @@ import { ProductService } from '../services/product.service';
 export class DashboardComponent implements OnInit {
   public basePath: any;
   public allProducts: any;
-  public productDetails:any;
+  public productDetails: any;
 
-  constructor(private productService:ProductService,private activatedRoute:ActivatedRoute,private db:AngularFireDatabase,private cartService:CartService) {
-    // this.allProducts = this.activatedRoute.snapshot.data['productsResolver'];
-    // console.log('this.allProducts from dashboard :>> ', this.allProducts);
-    this.basePath=this.db.database.ref('/products')
+  constructor(
+    private productService: ProductService,
+    private activatedRoute: ActivatedRoute,
+    private db: AngularFireDatabase,
+    private cartService: CartService
+  ) {
+    this.basePath = this.db.database.ref('/products');
     this.basePath.on('value', (data: any) => {
       this.allProducts = Object.keys(data.val()).map((key) => {
         return {
           ...data.val()[key],
-          push_key: key,
+          productId: key,
         };
       });
     });
   }
-  
-  ngOnInit(): void {
+
+  ngOnInit(): void {}
+
+  public addToCart(productId: string): void {
+    this.productDetails = this.allProducts.find(
+      (e: any) => e.productId == productId
+    );
+    const cartProduct = {
+      ...this.productDetails,
+      qty: 1,
+    };
+    this.cartService.addToCart(cartProduct);
   }
-  // public getProductDetails(): void {
-  //   const basePath=this.db.database.ref('/cart');
-  //   basePath.on('value', (data: any) => {
-  //     this.productDetails = data.val();
-  //     this.finalProductDetails={
-  //       ...this.productDetails,
-  //       qty:2
-  //     }
-  //     console.log('this.finalProductDetails :>> ', this.finalProductDetails);
-  //   });
-  // }
-
-  // public addToCart():void{
-  //   this.cartService.addToCart();
-  // }
-
 }

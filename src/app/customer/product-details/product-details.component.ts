@@ -36,7 +36,6 @@ export class ProductDetailsComponent implements OnInit {
         qty: 1,
         productId: this.id,
       };
-      console.log('this.finalProductDetails :>> ', this.finalProductDetails);
     });
   }
 
@@ -70,11 +69,7 @@ export class ProductDetailsComponent implements OnInit {
     // });
     const productData = {
       ...this.finalProductDetails,
-      finalPrice: this.finalProductDetails.price * this.finalProductDetails.qty,
     };
-
-    // console.log('Product data',productData);
     this.cartService.addToCart(productData);
-
   }
 }

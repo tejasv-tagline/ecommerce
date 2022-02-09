@@ -9,9 +9,9 @@
         <p class="card-text">{{product.description}}</p>
         <p class="card-text">{{product.price | currency:'INR'}}</p>
         
-        <a href="#" class="btn btn-primary" [routerLink]="['/customer/product-details/'+product.push_key]">View more</a>
+        <a href="#" class="btn btn-primary" [routerLink]="['/customer/product-details/'+product.productId]">View more</a>
         <!-- <a href="#" class="btn btn-outline-primary ms-2" (click)="addToCart()">Add to cart</a> -->
-        <a href="#" class="btn btn-outline-primary ms-2" >Add to cart</a>
+        <a class="btn btn-outline-primary ms-2" (click)="addToCart(product.productId)" >Add to cart</a>
     </div>
 </div>
 

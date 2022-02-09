@@ -14,6 +14,7 @@ export class ProductDetailsComponent implements OnInit {
   public id!: string;
   public productDetails: any;
   public pushProductToCart: any;
+  public finalProductDetails: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -30,10 +31,50 @@ export class ProductDetailsComponent implements OnInit {
   public getProductDetails(): void {
     this.basePath.on('value', (data: any) => {
       this.productDetails = data.val();
+      this.finalProductDetails = {
+        ...this.productDetails,
+        qty: 1,
+        productId: this.id,
+      };
+      console.log('this.finalProductDetails :>> ', this.finalProductDetails);
     });
   }
 
   public addToCart(): void {
-    this.cartService.addToCart(this.productDetails);
+    // const cartBasePath = this.db.database.ref('/cart');
+    // // cartBasePath.on('value',(data:any)=>{
+    // //   let allCartsData=data.val();
+    // //   console.log('allCartsData :>> ', allCartsData);
+    // // })
+    // cartBasePath.on('value', (data: any) => {
+    //   let allCartsData: any = Object.keys(data.val()).map((key) => {
+    //     return {
+    //       ...data.val()[key],
+    //       cartId: key,
+    //     };
+    //   });
+    //   console.log('allCartsData :>> ', allCartsData);
+    //   if (
+    //     allCartsData.find((e: any) => {
+    //       e.productId == this.finalProductDetails.productId;
+    //     })
+    //   ) {
+    //     // const cartNewBasePath = this.db.database.ref(
+    //     //   '/cart/' + allCartsData.cartId
+    //     // );
+    //     // cartNewBasePath.update((allCartsData.qty = allCartsData.qty + 1));
+    //     window.alert('Product already added');
+    //   } else {
+
+    //   }
+    // });
+    const productData = {
+      ...this.finalProductDetails,
+      finalPrice: this.finalProductDetails.price * this.finalProductDetails.qty,
+    };
+
+    // console.log('Product data',productData);
+    this.cartService.addToCart(productData);
+
   }
 }

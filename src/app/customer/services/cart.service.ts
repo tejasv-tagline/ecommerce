@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, QueryList } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class CartService {
   public addToCart(productDetails: any): void {
     const cartData = {
       ...productDetails,
-      userid: this.userId,
+      userid: this.userId
     };
     this.basePath.push(cartData);
   }

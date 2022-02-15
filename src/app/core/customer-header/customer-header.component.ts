@@ -9,13 +9,12 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 export class CustomerHeaderComponent implements OnInit {
   public basePath: any;
   public allCarts: any;
-  public cartLength:any;
+  public cartLength: any;
 
   constructor(private db: AngularFireDatabase) {
     this.basePath = this.db.database.ref('/cart');
     this.basePath.on('value', (data: any) => {
       this.allCarts = data.val();
-      // console.log('allCarts:>> ', this.allCarts);
       this.allCarts = Object.keys(data.val()).map((key) => {
         return {
           ...data.val()[key],
@@ -25,7 +24,6 @@ export class CustomerHeaderComponent implements OnInit {
       this.cartLength = this.allCarts.filter(
         (cart: any) => cart.userid == localStorage.getItem('userid')
       );
-      console.log('this.cartLength :>> ', this.cartLength);
     });
   }
 

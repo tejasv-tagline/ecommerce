@@ -9,33 +9,23 @@ import { AllProductList } from '../Interfaces/admin-common';
 })
 export class ViewAllProductComponent implements OnInit {
   public basePath: any;
-  public allProduts!:AllProductList[];
+  public allProduts!: AllProductList[];
   constructor(private db: AngularFireDatabase) {}
 
   ngOnInit(): void {
     this.basePath = this.db.database.ref('/products');
-    console.log('this.basePath :>> ', this.basePath);
-    // let allProducts=this.basePath.on('value', (data: any) => {
-    //   data.val();
-    // });
-
-      this.basePath.on('value', (data: any) => {
+    this.basePath.on('value', (data: any) => {
       this.allProduts = Object.keys(data.val()).map((key) => {
         return {
           ...data.val()[key],
           push_key: key,
         };
       });
-    console.log('allProducts :>> ',this.allProduts );
-    })}
+    });
+  }
 
-    public deleteProduct(id:string):void{
-      const basePath=this.db.database.ref('/products/'+id)
-      basePath.remove();
-      // const basePath=this.db.database.ref(`/products/${id}`);
-      // basePath.on('value',(data:any)=>{
-      //     console.log('data.val() :>> ', data.val());
-      // })
-
-    }
+  public deleteProduct(id: string): void {
+    const basePath = this.db.database.ref('/products/' + id);
+    basePath.remove();
+  }
 }

@@ -30,7 +30,5 @@ export class AddProductComponent implements OnInit {
     const basePath = this.db.database.ref('/products');
     basePath.push(this.myForm.value);
     this.toaster.success('Product added ..!');
-
-    // console.log(this.myForm.value);
   }
 }

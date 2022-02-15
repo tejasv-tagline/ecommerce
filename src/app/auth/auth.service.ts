@@ -25,7 +25,6 @@ export class AuthService {
     this.angularFireAuth
       .createUserWithEmailAndPassword(email, password)
       .then((res: any) => {
-        // console.log('res :>> ', res);
         if (res.operationType === 'signIn') {
           if (res.additionalUserInfo) {
             const basePath = this.db.database.ref('/users');
@@ -34,17 +33,13 @@ export class AuthService {
               role: 'customer',
             };
             basePath.push(data);
-            // console.log('res :>> ', res);
-            // this.toaster.success('Login successfull !');
             this.router.navigate(['dashboard']);
           }
           this.toaster.success('Account created successfully..');
-          // this.router.navigate(['login']);
         } else {
           window.alert('SignUp failed');
           this.router.navigate(['signup']);
         }
-        // console.log('res :>> ', res);
       })
       .catch((err) => {
         this.toaster.error(err);
@@ -61,10 +56,8 @@ export class AuthService {
             email: res.user?.multiFactor?.user?.email,
             role: 'admin',
           };
-          // basePath.push(data);
           let allData: any;
           allData = this.db.database.ref('/users');
-          // let data2:any;
           allData.on('value', (data: any) => {
             this.allUsersData = Object.keys(data.val()).map((key) => {
               return {
@@ -72,7 +65,6 @@ export class AuthService {
                 push_key: key,
               };
             });
-            // let data5=data2.find((e:any)=> e.email == email);
             this.singleUserData = this.allUsersData.find(
               (e: any) => e.email == email
             );

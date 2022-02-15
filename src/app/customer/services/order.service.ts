@@ -12,6 +12,8 @@ export class OrderService {
   public ownCartData: any;
   public cartBasePath: any;
   public cartValue: any = [];
+  public allOrders: any;
+  public ownOrders: any;
 
   constructor(private db: AngularFireDatabase) {
     this.basePath = this.db.database.ref('/orders');
@@ -33,11 +35,29 @@ export class OrderService {
       );
     });
   }
+
   public makeOrder(myForm: any): void {
     this.getOwnCart();
     this.basePath.push({
       ...myForm,
+      userId: this.userId,
       cartValue: this.ownCartData,
+    });
+  }
+
+  public getCutomerOwnOrders(): void {
+    this.basePath.on('value', (data: any) => {
+      this.allOrders = Object.keys(data.val()).map((key) => {
+        return {
+          ...data.val()[key],
+          orderId: key,
+        };
+      });
+      console.log('allOrders:>> ', this.allOrders);
+      this.ownOrders = this.allOrders.filter(
+        (id: any) => id.userId == localStorage.getItem('userid')
+        );
+      console.log('this.ownOrders :>> ', this.ownOrders);
     });
   }
 }

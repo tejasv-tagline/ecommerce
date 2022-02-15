@@ -20,6 +20,8 @@ export class CartComponent implements OnInit {
   public newBillCart: any;
   public fullBillAmount!: number;
   public myForm!: FormGroup;
+  public cartLen!:number;
+
 
   constructor(
     private db: AngularFireDatabase,
@@ -39,7 +41,9 @@ export class CartComponent implements OnInit {
       this.ownCartData = this.fullCartDataArray.filter(
         (cart: any) => cart.userid == localStorage.getItem('userid')
       );
+      this.cartLen=this.ownCartData.length;
       this.getOrderPrice();
+
     });
   }
 

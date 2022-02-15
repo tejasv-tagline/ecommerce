@@ -1,9 +1,9 @@
-<div class="d-flex justify-content-between p-5 pb-0">
+<div class="d-flex justify-content-between p-5 pb-0" *ngIf="cartLen>0">
     <h3>Your full cart</h3>
     <button class="btn btn-danger" routerLink="/customer/dashboard"> <i class="fas fa-backward me-1"> </i>Back</button>
 </div>
 <div class="d-flex justify-content-center p-5 pt-3">
-    <div class="card">
+    <div class="card" *ngIf="cartLen>0">
         <div class="card-body" *ngFor="let data of ownCartData">
             <div class="row">
                 <div class="col-sm-2 custom-image">
@@ -15,10 +15,14 @@
                     <p class="card-text">{{data.description}}</p>
                     <div class="d-flex">
                         <!-- <button class="btn btn-danger me-1" (click)="changeQty('minus',data.cartId)" ><i class="fas fa-minus"></i></button> <input type="text" class="form-control me-1 c-form-control"> <button class="btn btn-success me-1" (click)="changeQty('plus',data.cartId)"><i class="fas fa-plus"></i></button> -->
-                        <button class="btn btn-danger me-1" (click)="changeQty(data.cartId,'minus')" [disabled]="data.qty<2" ><i class="fas fa-minus"></i></button> 
-                        <input type="text" class="form-control me-1 c-form-control text-center" disabled value="{{data.qty}}"> 
-                        <button class="btn btn-success me-1" (click)="changeQty(data.cartId,'plus')"><i class="fas fa-plus"></i></button>
-                        <a class="card-link text-danger text-decoration-none mt-2 cursor-pointer" (click)="removeProductFromCart(data.cartId)">Remove product</a>
+                        <button class="btn btn-danger me-1" (click)="changeQty(data.cartId,'minus')"
+                            [disabled]="data.qty<2"><i class="fas fa-minus"></i></button>
+                        <input type="text" class="form-control me-1 c-form-control text-center" disabled
+                            value="{{data.qty}}">
+                        <button class="btn btn-success me-1" (click)="changeQty(data.cartId,'plus')"><i
+                                class="fas fa-plus"></i></button>
+                        <a class="card-link text-danger text-decoration-none mt-2 cursor-pointer"
+                            (click)="removeProductFromCart(data.cartId)">Remove product</a>
                     </div>
 
                 </div>
@@ -31,60 +35,78 @@
             <hr>
         </div>
         <div class="d-flex justify-content-between p-3">
-            <p class="d-inline">Total amount : <span class="text-blue text-bold"> {{fullBillAmount | currency:'INR'}}</span></p>
+            <p class="d-inline">Total amount : <span class="text-blue text-bold"> {{fullBillAmount |
+                    currency:'INR'}}</span></p>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Place order</button>
         </div>
     </div>
+    <div class="card" *ngIf="cartLen==0">
+            <div class="container c-empty-cart p-5 text-center">
+                <img src="../../../assets/emptyCart.png" alt="Empty cart image">
+                <div class="text-center">
+                    <p>Your cart is empty now</p>
+                    <button class="btn btn-primary" routerLink="/customer/dashboard">Start shopping now</button>
+                </div>
+            </div>
+    </div>
+
 </div>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title ps-3" id="exampleModalLabel">Order Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="card-body" *ngFor="let data of ownCartData">
-                <div class="row">
-                    <div class="col-sm-10 ps-3 pt-2">
-                        <h5 class="card-title">{{data.title}}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{data.price | currency:'INR'}}</h6>
-                        <p class="card-text">Quantity : {{data.qty}}</p>
-                    </div>
-                    <div class="col-sm-2 d-flex justify-content-center align-items-center">
-                        <!-- <div class="">Total :</div> -->
-                        <h4>₹{{data.finalPrice}}</h4>
-                    </div>
-    
-                </div>
-                <hr>
-            </div>
-            <form [formGroup]="myForm" class="p-3" (ngSubmit)="onSubmit()">
-                <h3 class="text-center mb-1">Please enter shipping details</h3>
-                <div class="formgroup">
-                    <input type="text" class="form-control mt-2" placeholder="Enter your name" formControlName="name">
-                </div>
-                <div class="formgroup">
-                    <textarea class="form-control mt-2" placeholder="Enter address" formControlName="address"></textarea>
-                </div>
-                <div class="formgroup">
-                    <input type="number" class="form-control mt-2" placeholder="Enter Pincode" formControlName="pincode">
-                </div>
-                <div class="formgroup">
-                    <input type="tel" class="form-control mt-2" placeholder="Enter mobile number" formControlName="mobile">
-                </div>
-                <div class="text-center mt-2">
-                    <button type="submit" class="btn btn-primary">Place order</button>
-                </div>
-            </form>
 
-        </div>
-        <div class="modal-footer d-flex justify-content-between p-3">
-                <p class="d-inline ms-3">Total amount : <span class="text-blue text-bold"> {{fullBillAmount | currency:'INR'}}</span></p>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title ps-3" id="exampleModalLabel">Order Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body" *ngFor="let data of ownCartData">
+                    <div class="row">
+                        <div class="col-sm-10 ps-3 pt-2">
+                            <h5 class="card-title">{{data.title}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{data.price | currency:'INR'}}</h6>
+                            <p class="card-text">Quantity : {{data.qty}}</p>
+                        </div>
+                        <div class="col-sm-2 d-flex justify-content-center align-items-center">
+                            <!-- <div class="">Total :</div> -->
+                            <h4>₹{{data.finalPrice}}</h4>
+                        </div>
+
+                    </div>
+                    <hr>
+                </div>
+                <form [formGroup]="myForm" class="p-3" (ngSubmit)="onSubmit()">
+                    <h3 class="text-center mb-1">Please enter shipping details</h3>
+                    <div class="formgroup">
+                        <input type="text" class="form-control mt-2" placeholder="Enter your name"
+                            formControlName="name">
+                    </div>
+                    <div class="formgroup">
+                        <textarea class="form-control mt-2" placeholder="Enter address"
+                            formControlName="address"></textarea>
+                    </div>
+                    <div class="formgroup">
+                        <input type="number" class="form-control mt-2" placeholder="Enter Pincode"
+                            formControlName="pincode">
+                    </div>
+                    <div class="formgroup">
+                        <input type="tel" class="form-control mt-2" placeholder="Enter mobile number"
+                            formControlName="mobile">
+                    </div>
+                    <div class="text-center mt-2">
+                        <button type="submit" class="btn btn-primary">Place order</button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-between p-3">
+                <p class="d-inline ms-3">Total amount : <span class="text-blue text-bold"> {{fullBillAmount |
+                        currency:'INR'}}</span></p>
                 <button class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                 <!-- <button class="btn btn-primary">Make Payment</button> -->
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>

@@ -43,7 +43,6 @@ export class ProductDetailsComponent implements OnInit {
     // const cartBasePath = this.db.database.ref('/cart');
     // // cartBasePath.on('value',(data:any)=>{
     // //   let allCartsData=data.val();
-    // //   console.log('allCartsData :>> ', allCartsData);
     // // })
     // cartBasePath.on('value', (data: any) => {
     //   let allCartsData: any = Object.keys(data.val()).map((key) => {
@@ -52,7 +51,6 @@ export class ProductDetailsComponent implements OnInit {
     //       cartId: key,
     //     };
     //   });
-    //   console.log('allCartsData :>> ', allCartsData);
     //   if (
     //     allCartsData.find((e: any) => {
     //       e.productId == this.finalProductDetails.productId;

@@ -18,6 +18,8 @@ export class CartService {
   // public qtyLessThen1:boolean=false;
   public elseNewBillCart: any;
   public isdisableDecrementButton: boolean = false;
+  public getcartLength: number = 0;
+
   constructor(private db: AngularFireDatabase) {
     this.userId = localStorage.getItem('userid');
     this.basePath = this.db.database.ref('/cart');
@@ -42,19 +44,16 @@ export class CartService {
           cartId: key,
         };
       });
-      // console.log('this.fullCartDataArray :>> ', this.fullCartDataArray);
       this.ownCartData = this.fullCartDataArray.filter(
         (cart: any) => cart.userid == localStorage.getItem('userid')
       );
-      // console.log('this.ownCartData :>> ', this.ownCartData);
       this.getOrderPrice();
     });
     return this.ownCartData;
   }
 
-  public changeQty(cartId: string, param: string) {
+  public changeQty(cartId: string, param: string): void {
     this.getOwnCart();
-    // console.log('this.ownCartData :>> ', this.ownCartData);
     this.changedCartData = this.ownCartData.find(
       (e: any) => e.cartId == cartId
     );
@@ -108,47 +107,60 @@ export class CartService {
     } else {
       this.baseCartPath.on('value', (data: any) => {
         this.elseNewBillCart = data.val();
-        // console.log('newBillCart :>> ', newBillCart);
       });
-      
-        let dummyCartData = {
-          cartId: this.changedCartData.cartId,
-          description: this.changedCartData.description,
-          finalPrice: this.changedCartData.finalPrice,
-          price: this.changedCartData.price,
-          qty: this.changedCartData.qty - 1,
-          returnPeriod: this.changedCartData.returnPeriod,
-          title: this.changedCartData.title,
-          userid: this.changedCartData.userid,
-        };
-        this.baseCartPath.update(dummyCartData);
 
-        let passData = {
-          cartId: this.changedCartData.cartId,
-          description: this.changedCartData.description,
-          finalPrice: this.changedCartData.price * dummyCartData.qty,
-          price: this.changedCartData.price,
-          qty: dummyCartData.qty,
-          returnPeriod: this.changedCartData.returnPeriod,
-          title: this.changedCartData.title,
-          userid: this.changedCartData.userid,
-        };
-        // this.pushCartData.qty=this.pushCartData.qty - 1;
-        // this.baseCartPath.update(this.pushCartData);
-        this.baseCartPath.update(passData);
-        this.baseCartPath.on('value', (data: any) => {
-          this.newBillCart = data.val();
-        });
-        this.getOrderPrice();
-      
+      let dummyCartData = {
+        cartId: this.changedCartData.cartId,
+        description: this.changedCartData.description,
+        finalPrice: this.changedCartData.finalPrice,
+        price: this.changedCartData.price,
+        qty: this.changedCartData.qty - 1,
+        returnPeriod: this.changedCartData.returnPeriod,
+        title: this.changedCartData.title,
+        userid: this.changedCartData.userid,
+      };
+      this.baseCartPath.update(dummyCartData);
+
+      let passData = {
+        cartId: this.changedCartData.cartId,
+        description: this.changedCartData.description,
+        finalPrice: this.changedCartData.price * dummyCartData.qty,
+        price: this.changedCartData.price,
+        qty: dummyCartData.qty,
+        returnPeriod: this.changedCartData.returnPeriod,
+        title: this.changedCartData.title,
+        userid: this.changedCartData.userid,
+      };
+      // this.pushCartData.qty=this.pushCartData.qty - 1;
+      // this.baseCartPath.update(this.pushCartData);
+      this.baseCartPath.update(passData);
+      this.baseCartPath.on('value', (data: any) => {
+        this.newBillCart = data.val();
+      });
+      this.getOrderPrice();
     }
   }
 
-  public removeProductFromCart(cartId:string){
-    const removeBasePath=this.db.database.ref('/cart/'+cartId);
-    removeBasePath.remove();
+  public getCartLen(): void {
+    this.basePath.on('value', (data: any) => {
+      this.fullCartData = data.val();
+      this.fullCartDataArray = Object.keys(data.val()).map((key) => {
+        return {
+          ...data.val()[key],
+          cartId: key,
+        };
+      });
+      this.ownCartData = this.fullCartDataArray.filter(
+        (cart: any) => cart.userid == localStorage.getItem('userid')
+        );
+      this.getcartLength = this.ownCartData.length;
+    });
   }
 
+  public removeProductFromCart(cartId: string): void {
+    const removeBasePath = this.db.database.ref('/cart/' + cartId);
+    removeBasePath.remove();
+  }
 
   public getOrderPrice(): void {}
 }

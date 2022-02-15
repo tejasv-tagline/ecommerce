@@ -15,8 +15,8 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
   public allData!: any;
-  public showData=[];
-  public data2:any[]=[];
+  public showData = [];
+  public data2: any[] = [];
   // public tutorial: AngularFireObject<any>;
 
   constructor(private db: AngularFireDatabase) {
@@ -24,20 +24,17 @@ export class HomeComponent implements OnInit {
     // this.allData.push({fname:'fname'})
 
     this.allData.on('value', (data: any) => {
-      this.data2 = Object.keys(data.val()).map(key => {
+      this.data2 = Object.keys(data.val()).map((key) => {
         return {
           ...data.val()[key],
-          push_key: key
-        }
-      })
+          push_key: key,
+        };
+      });
     });
   }
 
-  deleteProduct(){
-    console.log('data2 :>> ', this.data2);
-    const id :any = this.data2[0].push_key;
-
-    console.log('id :>> ', id);
+  deleteProduct() {
+    const id: any = this.data2[0].push_key;
     const refPath = this.db.database.ref(`/product/${id}`);
     refPath.remove();
     // this.allData.dele
@@ -45,17 +42,15 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public showFrontend(){
-    this.allData.on('value',(data:any)=>{
-      this.showData=data.val().frontend;
-      console.log('this.showData :>> ', this.showData);
-    })
+  public showFrontend() {
+    this.allData.on('value', (data: any) => {
+      this.showData = data.val().frontend;
+    });
   }
 
-  public showBackend(){
-    this.allData.on('value',(data:any)=>{
-      this.showData=data.val().backend;
-      console.log('this.showData :>> ', this.showData);
-    })
+  public showBackend() {
+    this.allData.on('value', (data: any) => {
+      this.showData = data.val().backend;
+    });
   }
 }

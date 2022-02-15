@@ -6,13 +6,15 @@ import { SuccessfulOrdersComponent } from './successful-orders/successful-orders
 import { PendingOrdersComponent } from './pending-orders/pending-orders.component';
 import { ReturnOrdersComponent } from './return-orders/return-orders.component';
 import { CoreModule } from 'src/app/core/core.module';
+import { OrdersComponent } from './orders.component';
 
 
 @NgModule({
   declarations: [
     SuccessfulOrdersComponent,
     PendingOrdersComponent,
-    ReturnOrdersComponent
+    ReturnOrdersComponent,
+    OrdersComponent
   ],
   imports: [
     CommonModule,

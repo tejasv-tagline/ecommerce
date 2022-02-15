@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CartService } from '../services/cart.service';
+import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-cart',
@@ -17,10 +19,14 @@ export class CartComponent implements OnInit {
   public pushCartData: any;
   public newBillCart: any;
   public fullBillAmount!: number;
+  public myForm!:FormGroup;
+
 
   constructor(
     private db: AngularFireDatabase,
-    private cartService: CartService
+    private cartService: CartService,
+    private fb:FormBuilder,
+    private orderService:OrderService
   ) {
     this.basePath = this.db.database.ref('/cart');
     this.basePath.on('value', (data: any) => {
@@ -38,7 +44,14 @@ export class CartComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+      this.myForm=this.fb.group({
+        name:[''],
+        address:[''],
+        pincode:[''],
+        mobile:['']
+      })
+  }
 
   public changeQty(cartId: string, param: string): void {
     this.cartService.changeQty(cartId, param);
@@ -55,4 +68,11 @@ export class CartComponent implements OnInit {
   public removeProductFromCart(cartId: string) {
     this.cartService.removeProductFromCart(cartId);
   }
+
+  public onSubmit():void{
+    console.log('this.myForm.value :>> ', this.myForm.value);
+    // this.orderService.getOwnCart();
+    this.orderService.makeOrder(this.myForm.value);
+  }
+
 }

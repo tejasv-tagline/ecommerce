@@ -9,6 +9,7 @@ import { CoreModule } from '../core/core.module';
 import { ProfileComponent } from './profile/profile.component';
 import { OrdersComponent } from './orders/orders.component';
 import { CustomerComponent } from './customer.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,11 +20,14 @@ import { CustomerComponent } from './customer.component';
     ProfileComponent,
     OrdersComponent,
     CustomerComponent,
+
   ],
   imports: [
     CommonModule,
     CustomerRoutingModule,
-    CoreModule
+    CoreModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class CustomerModule { }

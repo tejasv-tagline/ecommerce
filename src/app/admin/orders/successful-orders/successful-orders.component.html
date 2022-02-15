@@ -1,5 +1,53 @@
-<div class="d-flex justify-content-between">
-    <button class="btn custom-button-shadow custom-buttton-radius styled-button" routerLink="successful-orders">Successfull orders</button>
-    <button class="btn custom-button-shadow custom-buttton-radius styled-button" routerLink="pending-orders">Pending orders</button>
-    <button class="btn custom-button-shadow custom-buttton-radius styled-button" routerLink="return-orders">Return orders</button>
-</div>
+<div class="p-5">
+    <div class="d-flex justify-content-between">
+      <h2>Showing all products </h2>
+      <button class="btn btn-danger" routerLink="/admin/dashboard"><i class="fas fa-backward me-1"></i>Back</button>
+    </div>
+    <table class="table table-bordered table-hover mt-3">
+      <thead>
+        <tr>
+          <th scope="col">Sr no</th>
+          <th scope="col">Customer Name</th>
+          <th scope="col">Address</th>
+          <th scope="col">Pincode</th>
+          <th scope="col">Mobile</th>
+          <th scope="col">Order details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of allOrders;let i=index">
+          <th>{{i+1}}</th>
+          <td>{{order.name}}</td>
+          <td>{{order.address}}</td>
+          <td>{{order.pincode}}</td>
+          <td>{{order.mobile}}</td>
+          <td class="text-center" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getCartValue(order.productId)"><i class="fas fa-eye"></i></td>
+        </tr>
+      </tbody>
+    </table>
+
+<!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Order details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-primary" *ngFor="let order of orderDetails">
+
+                <p class="d-flex justify-content-between"> <span class="w-50"> Product name : {{order.title}} </span> |<span>Quantity : {{order.qty}}</span> </p> 
+                <!-- <li class="list-group-item">Quantity : {{order.qty}}</li> -->
+
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  

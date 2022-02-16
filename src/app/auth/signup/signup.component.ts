@@ -44,7 +44,7 @@ export class SignupComponent implements OnInit {
     const address=this.myForm.value.address;
     const pincode=this.myForm.value.pincode;
     
-    this.authService.signUp(this.sendEmail,this.sendPassword,fName,lName,mobile,address,pincode);
+    this.authService.signUp(this.sendEmail,this.sendPassword,fName,lName,address,mobile,pincode);
     console.log('this.myForm.value :>> ', this.myForm.value);
     // this.router.navigate(['login']);
   }

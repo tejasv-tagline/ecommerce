@@ -1,7 +1,19 @@
 <div class="d-flex justify-content-center mt-5">
     <form [formGroup]="myForm" (ngSubmit)="signUp()" class="w-50">
         <h1 class="text-center">Sign up form</h1>
-        <input type="text" formControlName="email" class="form-control" placeholder="Enter email" email>
+        <div class="d-flex justify-content-between">
+            <input type="text" formControlName="fName" class="form-control mt-3 c-w-50" placeholder="Enter firstName">
+            <input type="text" formControlName="lName" class="form-control mt-3 c-w-50" placeholder="Enter lastName">
+        </div>
+        <!-- <label for="gender">Select gender : </label> &nbsp; -->
+        <!-- <input type="radio" name="gender" value="male">Male 
+        <input type="radio" name="gender" value="female">Female -->
+        <input type="text" formControlName="address" class="form-control mt-3" placeholder="Enter address">
+        <div class="d-flex justify-content-between">
+            <input type="number" formControlName="pincode" class="form-control mt-3 c-w-50" placeholder="Enter pincode">
+            <input type="tel" formControlName="mobile" class="form-control mt-3 c-w-50" placeholder="Enter mobile number">
+        </div>
+        <input type="text" formControlName="email" class="form-control mt-3" placeholder="Enter email" email>
         <div *ngIf="fControl['email'].touched && fControl['email'].errors?.['required']" class="text-danger">Email
             is required</div>
         <div *ngIf="fControl['email'].touched && fControl['email'].errors?.['email']" class="text-danger">Email

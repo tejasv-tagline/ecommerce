@@ -15,6 +15,12 @@ export class SignupComponent implements OnInit {
 
   constructor(private authService:AuthService,private fb:FormBuilder,private router:Router) {
     this.myForm=this.fb.group({
+      fName:[''],
+      lName:[''],
+      mobile:[''],
+      // gender:[''],
+      address:[''],
+      pincode:[''],
       email:['',[Validators.required,Validators.email]],
       password:['',[Validators.required,Validators.minLength(6)]],
       // mobile:['']
@@ -32,7 +38,14 @@ export class SignupComponent implements OnInit {
     // const contact=this.myForm.value.mobile;
     this.sendEmail=this.myForm.value.email;
     this.sendPassword=this.myForm.value.password;
-    this.authService.signUp(this.sendEmail,this.sendPassword);
+    const fName=this.myForm.value.fName;
+    const lName=this.myForm.value.lName;
+    const mobile=this.myForm.value.mobile;
+    const address=this.myForm.value.address;
+    const pincode=this.myForm.value.pincode;
+    
+    this.authService.signUp(this.sendEmail,this.sendPassword,fName,lName,mobile,address,pincode);
+    console.log('this.myForm.value :>> ', this.myForm.value);
     // this.router.navigate(['login']);
   }
 }

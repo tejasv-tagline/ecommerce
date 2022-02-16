@@ -15,10 +15,12 @@ export class CartService {
   public pushCartData: any;
   public newBillCart: any;
   public fullBillAmount!: number;
-  // public qtyLessThen1:boolean=false;
   public elseNewBillCart: any;
   public isdisableDecrementButton: boolean = false;
   public getcartLength: number = 0;
+  public cartArrayCheck: any = [];
+  public cartVal: any;
+  public allCarts: any;
 
   constructor(private db: AngularFireDatabase) {
     this.userId = localStorage.getItem('userid');
@@ -26,12 +28,83 @@ export class CartService {
   }
 
   public addToCart(productDetails: any): void {
+    // this.checkCartProducts(productId);
     const cartData = {
       ...productDetails,
       userid: this.userId,
       finalPrice: productDetails.price * productDetails.qty,
     };
     this.basePath.push(cartData);
+  }
+
+  public getAllCarts(): void {
+    this.cartArrayCheck = [];
+    this.basePath.on('value', (data: any) => {
+      this.allCarts = Object.keys(data.val()).map((key) => {
+        return {
+          ...data.val()[key],
+          cartId: key,
+        };
+      });
+    });
+  }
+
+  public findUpdateCart(productId: string): void {
+    this.cartArrayCheck = this.allCarts.find(
+      (element: any) =>
+        element.productId === productId &&
+        element.userid === localStorage.getItem('userid')
+    );
+  }
+
+  public updateCart(): void {
+    // Used to increase cart quantity whenever adding same product which is available in cart
+    const basePath = this.db.database.ref(
+      '/cart/' + this.cartArrayCheck.cartId
+    );
+    basePath.on('value', (data: any) => {
+      this.cartVal = data.val();
+    });
+    const updateCartQuantity = {
+      description: this.cartArrayCheck.description,
+      finalPrice: this.cartArrayCheck.finalPrice,
+      price: this.cartArrayCheck.price,
+      productId: this.cartArrayCheck.productId,
+      qty: this.cartArrayCheck.qty + 1,
+      returnPeriod: this.cartArrayCheck.returnPeriod,
+      title: this.cartArrayCheck.title,
+      userid: this.cartArrayCheck.userid,
+    };
+    basePath.update(updateCartQuantity);
+
+    // Used to increase cart finalprice whenever adding same product which is available in cart
+    const basePathToUpdateFinalPrice = this.db.database.ref(
+      '/cart/' + this.cartArrayCheck.cartId
+    );
+    basePathToUpdateFinalPrice.on('value', (data: any) => {
+      this.cartVal = data.val();
+    });
+    const updateCartFinalPrice = {
+      description: this.cartVal.description,
+      finalPrice: this.cartVal.price * this.cartVal.qty,
+      price: this.cartVal.price,
+      productId: this.cartVal.productId,
+      qty: this.cartVal.qty,
+      returnPeriod: this.cartVal.returnPeriod,
+      title: this.cartVal.title,
+      userid: this.cartVal.userid,
+    };
+    basePath.update(updateCartFinalPrice);
+  }
+
+  public checkCartProducts(productId: string, productData: any): void {
+    this.getAllCarts();
+    this.findUpdateCart(productId);
+    if (this.cartArrayCheck) {
+      this.updateCart();
+    } else {
+      this.addToCart(productData);
+    }
   }
 
   public getOwnCart(): void {
@@ -53,6 +126,7 @@ export class CartService {
   }
 
   public changeQty(cartId: string, param: string): void {
+    // Used to plus or minus quantity from cart
     this.getOwnCart();
     this.changedCartData = this.ownCartData.find(
       (e: any) => e.cartId == cartId
@@ -152,7 +226,7 @@ export class CartService {
       });
       this.ownCartData = this.fullCartDataArray.filter(
         (cart: any) => cart.userid == localStorage.getItem('userid')
-        );
+      );
       this.getcartLength = this.ownCartData.length;
     });
   }

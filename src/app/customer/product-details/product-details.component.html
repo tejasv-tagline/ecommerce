@@ -19,7 +19,7 @@
                     <p class="card-text text-muted">{{productDetails?.price | currency:'INR' || ''}}</p>
                     <p>Product details:</p>
                     <li class="card-text text-muted">{{productDetails?.description || ''}}</li>
-                    <button class="btn btn-primary" (click)="addToCart()">Add to cart</button>
+                    <button class="btn btn-primary" (click)="addToCart(finalProductDetails.productId)">Add to cart</button>
                 </div>
             </div>
         </div>

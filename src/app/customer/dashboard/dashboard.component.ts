@@ -38,10 +38,13 @@ export class DashboardComponent implements OnInit {
     this.productDetails = this.allProducts.find(
       (e: any) => e.productId == productId
     );
+    console.log('this.productDetails :>> ', this.productDetails);
     const cartProduct = {
       ...this.productDetails,
       qty: 1,
     };
-    this.cartService.addToCart(cartProduct);
+    // console.log('cartProduct :>> ', cartProduct);
+    this.cartService.checkCartProducts(productId,cartProduct);
+    // this.cartService.addToCart(cartProduct);
   }
 }

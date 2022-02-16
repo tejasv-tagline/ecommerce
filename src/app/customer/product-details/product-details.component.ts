@@ -39,35 +39,11 @@ export class ProductDetailsComponent implements OnInit {
     });
   }
 
-  public addToCart(): void {
-    // const cartBasePath = this.db.database.ref('/cart');
-    // // cartBasePath.on('value',(data:any)=>{
-    // //   let allCartsData=data.val();
-    // // })
-    // cartBasePath.on('value', (data: any) => {
-    //   let allCartsData: any = Object.keys(data.val()).map((key) => {
-    //     return {
-    //       ...data.val()[key],
-    //       cartId: key,
-    //     };
-    //   });
-    //   if (
-    //     allCartsData.find((e: any) => {
-    //       e.productId == this.finalProductDetails.productId;
-    //     })
-    //   ) {
-    //     // const cartNewBasePath = this.db.database.ref(
-    //     //   '/cart/' + allCartsData.cartId
-    //     // );
-    //     // cartNewBasePath.update((allCartsData.qty = allCartsData.qty + 1));
-    //     window.alert('Product already added');
-    //   } else {
-
-    //   }
-    // });
+  public addToCart(productId:string): void {
     const productData = {
       ...this.finalProductDetails,
     };
-    this.cartService.addToCart(productData);
+    console.log('productData :>> ', productData);
+    this.cartService.checkCartProducts(productId,productData);
   }
 }

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../services/cart.service';
 import { OrderService } from '../services/order.service';
+import { ProfileService } from '../services/profile.service';
 
 @Component({
   selector: 'app-cart',
@@ -21,15 +22,17 @@ export class CartComponent implements OnInit {
   public newBillCart: any;
   public fullBillAmount!: number;
   public myForm!: FormGroup;
-  public cartLen!:number;
-
+  public cartLen!: number;
+  public allProfiles: any;
+  public userProfile: any;
 
   constructor(
     private db: AngularFireDatabase,
     private cartService: CartService,
     private fb: FormBuilder,
     private orderService: OrderService,
-    private toaster :ToastrService
+    private toaster: ToastrService,
+    private profileService: ProfileService
   ) {
     this.basePath = this.db.database.ref('/cart');
     this.basePath.on('value', (data: any) => {
@@ -43,7 +46,7 @@ export class CartComponent implements OnInit {
       this.ownCartData = this.fullCartDataArray.filter(
         (cart: any) => cart.userid == localStorage.getItem('userid')
       );
-      this.cartLen=this.ownCartData.length;
+      this.cartLen = this.ownCartData.length;
       this.getOrderPrice();
     });
   }
@@ -73,10 +76,32 @@ export class CartComponent implements OnInit {
     this.cartService.removeProductFromCart(cartId);
   }
 
-  public onSubmit(cartId:string): void {
-    this.orderService.makeOrder(this.myForm.value).then(()=>{
-            this.toaster.success('Order placed !');
-    })
+  public onSubmit(cartId: string): void {
+    const formData={
+      name:this.myForm.value.name || this.userProfile?.fName + this.userProfile?.lName ,
+      address:this.myForm.value.address || this.userProfile?.address,
+      pincode:this.myForm.value.pincode || this.userProfile?.pincode,
+      mobile:this.myForm.value.mobile || this.userProfile?.mobile
+    }
+    this.orderService.makeOrder(formData).then(() => {
+      this.toaster.success('Order placed !');
+    });
     this.orderService.removeCart();
+  }
+
+  public getFormValue(): void {
+    const basePath=this.db.database.ref('/users/')
+    basePath.on('value', (data: any) => {
+      this.allProfiles = Object.keys(data.val()).map((key) => {
+        return {
+          ...data.val()[key],
+          userid: key,
+        };
+      });
+      this.userProfile = this.allProfiles.find(
+        (element: any) => element.userid == localStorage.getItem('userid')
+      );
+      console.log('this.userProfile :>> ', this.userProfile);
+    });
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { ProfileService } from '../services/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +12,7 @@ export class ProfileComponent implements OnInit {
   public allUserProfile:any;
   public userProfile:any;
 
-  constructor(private db:AngularFireDatabase) {
+  constructor(private db:AngularFireDatabase,private profileService:ProfileService) {
     this.basePath=this.db.database.ref('/users')
     this.basePath.on('value',(data:any)=>{
       console.log('data.val() :>> ', data.val());
@@ -29,6 +30,7 @@ export class ProfileComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.profileService.getUserProfile();
   }
 
 }

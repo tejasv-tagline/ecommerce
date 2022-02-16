@@ -37,17 +37,18 @@
         <div class="d-flex justify-content-between p-3">
             <p class="d-inline">Total amount : <span class="text-blue text-bold"> {{fullBillAmount |
                     currency:'INR'}}</span></p>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Place order</button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                (click)="getFormValue()">Place order</button>
         </div>
     </div>
     <div class="card" *ngIf="cartLen==0">
-            <div class="container c-empty-cart p-5 text-center">
-                <img src="../../../assets/emptyCart.png" alt="Empty cart image">
-                <div class="text-center">
-                    <p>Your cart is empty now</p>
-                    <button class="btn btn-primary" routerLink="/customer/dashboard">Start shopping now</button>
-                </div>
+        <div class="container c-empty-cart p-5 text-center">
+            <img src="../../../assets/emptyCart.png" alt="Empty cart image">
+            <div class="text-center">
+                <p>Your cart is empty now</p>
+                <button class="btn btn-primary" routerLink="/customer/dashboard">Start shopping now</button>
             </div>
+        </div>
     </div>
 
 </div>
@@ -80,20 +81,21 @@
                 <form [formGroup]="myForm" class="p-3" (ngSubmit)="onSubmit(ownCartData.cartId)">
                     <h3 class="text-center mb-1">Please enter shipping details</h3>
                     <div class="formgroup">
+                        <label for="name"></label>
                         <input type="text" class="form-control mt-2" placeholder="Enter your name"
-                            formControlName="name">
+                            formControlName="name" value="{{userProfile?.fName}} {{userProfile?.lName}}">
                     </div>
                     <div class="formgroup">
-                        <textarea class="form-control mt-2" placeholder="Enter address"
-                            formControlName="address"></textarea>
+                        <textarea class="form-control mt-2" placeholder="Enter address" formControlName="address"
+                            value="{{userProfile?.address}}"></textarea>
                     </div>
                     <div class="formgroup">
                         <input type="number" class="form-control mt-2" placeholder="Enter Pincode"
-                            formControlName="pincode">
+                            formControlName="pincode" value="{{userProfile?.pincode}}">
                     </div>
                     <div class="formgroup">
                         <input type="tel" class="form-control mt-2" placeholder="Enter mobile number"
-                            formControlName="mobile">
+                            formControlName="mobile" value="{{userProfile?.mobile}}">
                     </div>
                     <div class="text-center mt-2">
                         <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Place order</button>

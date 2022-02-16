@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { ToastrService } from 'ngx-toastr';
 import { OrderService } from '../services/order.service';
 
 @Component({
@@ -11,8 +12,11 @@ export class OrdersComponent implements OnInit {
   public basePath:any;
   public fullCartValue:any;
 
-  constructor(public orderService:OrderService,private db:AngularFireDatabase) { 
-    this.orderService.getCutomerOwnOrders();
+  constructor(public orderService:OrderService,private db:AngularFireDatabase,private toaster:ToastrService) { 
+      this.orderService.getCutomerOwnOrders().then(()=>{
+      this.toaster.success('All orders fetched successfully');
+    });
+
   }
 
   ngOnInit(): void {

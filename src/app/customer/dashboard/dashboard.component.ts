@@ -43,6 +43,5 @@ export class DashboardComponent implements OnInit {
       qty: 1,
     };
     this.cartService.checkCartProducts(productId,cartProduct);
-    // this.cartService.addToCart(cartProduct);
   }
 }

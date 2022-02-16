@@ -28,7 +28,6 @@ export class CartService {
   }
 
   public addToCart(productDetails: any): void {
-    // this.checkCartProducts(productId);
     const cartData = {
       ...productDetails,
       userid: this.userId,
@@ -172,9 +171,6 @@ export class CartService {
       };
       this.baseCartPath.update(passData);
       this.getOrderPrice();
-
-      // this.pushCartData.qty=this.pushCartData.qty+1;
-      // this.baseCartPath.update(this.pushCartData);
       this.baseCartPath.on('value', (data: any) => {
         this.newBillCart = data.val();
       });
@@ -205,8 +201,6 @@ export class CartService {
         title: this.changedCartData.title,
         userid: this.changedCartData.userid,
       };
-      // this.pushCartData.qty=this.pushCartData.qty - 1;
-      // this.baseCartPath.update(this.pushCartData);
       this.baseCartPath.update(passData);
       this.baseCartPath.on('value', (data: any) => {
         this.newBillCart = data.val();

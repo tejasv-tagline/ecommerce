@@ -10,10 +10,4 @@ export class CrudService {
   constructor(private db:AngularFireDatabase,private activatedRoute:ActivatedRoute) {
       
    }
-
-  //  public updateDetails(myForm:any):void{
-  //   this.pushKey=this.activatedRoute.snapshot.params['pushKey'];
-  //   let basePath=this.db.database.ref('/products/'+this.pushKey);
-  //   basePath.update(myForm);
-  //  }
 }

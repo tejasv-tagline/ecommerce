@@ -38,12 +38,6 @@ export class OrderService {
   }
 
   public makeOrder(myForm: any): any {
-    // this.getOwnCart();
-    // this.basePath.push({
-    //   ...myForm,
-    //   userId: this.userId,
-    //   cartValue: this.ownCartData,
-    // });
     return new Promise<any>((resolve, reject) => {
       this.getOwnCart();
       this.basePath.push({
@@ -53,24 +47,7 @@ export class OrderService {
       });
       resolve(true);
     });
-    // this.authService.login(loginform).then(() => {
-    //   this.toastr.success('User login successfully');
-    //   this.router.navigate(['welcome']);
-    // }).catch(() => {
-    //   this.toastr.error('Please enter valid email or password');
-    // });
-
-    // login(loginform) {
-    //   return new Promise<any>((resolve, reject) => {
-    //     this.afAuth.auth.signInWithEmailAndPassword(loginform.email, loginform.password).then((user) => {
-    //       this.authState = user.user;
-    //       resolve();
-    //     }).catch((error) => {
-    //       reject();
-    //     });
-    //   });
-    // }
-  }
+      }
 
   public getCartToRemove(): void {
     this.cartBasePath.on('value', (data: any) => {
@@ -87,30 +64,35 @@ export class OrderService {
     });
   }
   
-  public removeCart(): void {
-    this.getCartToRemove();
-    this.ownCartToRemove.forEach((element:any)=>{
-      const baseP=this.db.database.ref('/cart/'+ element.cartId)
-      baseP.on('value',(data:any)=>{
+  public removeCart(): any {
+    return new Promise<any>((resolve,reject)=>{
+      this.getCartToRemove();
+      this.ownCartToRemove.forEach((element:any)=>{
+        const baseP=this.db.database.ref('/cart/'+ element.cartId)
+        baseP.remove();
       })
-      baseP.remove();
-    })
-    const basePath=this.db.database.ref('/cart/'+this.ownCartToRemove.cartId);
-    basePath.on('value',(data:any)=>{
+      const basePath=this.db.database.ref('/cart/'+this.ownCartToRemove.cartId);
+      basePath.on('value',(data:any)=>{
+      })
+      resolve(true);
     })
   }
 
-  public getCutomerOwnOrders(): void {
-    this.basePath.on('value', (data: any) => {
-      this.allOrders = Object.keys(data.val()).map((key) => {
-        return {
-          ...data.val()[key],
-          orderId: key,
-        };
+  public getCutomerOwnOrders(): any {
+    return new Promise<void>((resolve,reject)=>{
+      this.basePath.on('value', (data: any) => {
+        this.allOrders = Object.keys(data.val()).map((key) => {
+          return {
+            ...data.val()[key],
+            orderId: key,
+          };
+        });
+        this.ownOrders = this.allOrders.filter(
+          (id: any) => id.userId == localStorage.getItem('userid')
+        );
       });
-      this.ownOrders = this.allOrders.filter(
-        (id: any) => id.userId == localStorage.getItem('userid')
-      );
-    });
+      resolve();
+      reject('Not done')
+    })
   }
 }

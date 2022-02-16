@@ -21,15 +21,9 @@ export class ProfileService {
           userid: key,
         };
       });
-      // console.log('localstorage.getItem(userid) :>> ', localStorage.getItem('userid'));
-      // console.log('this.allProfiles :>> ', this.allProfiles);
       this.userProfile = this.allProfiles.find(
         (element: any) => element.userid == localStorage.getItem('userid')
       );
-      // this.userProfile = this.allProfiles.find(
-      //   (e: any) => e.email == email
-      // );
-      console.log('this.userProfile :>> ', this.userProfile);
       return this.userProfile;
       
     });

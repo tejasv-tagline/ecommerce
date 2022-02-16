@@ -49,6 +49,5 @@ export class UpdateProductComponent implements OnInit {
 
   public updateProduct(): void {
     this.basePath.update(this.myForm.value);
-    // this.crudService.updateDetails(this.myForm.value);
   }
 }

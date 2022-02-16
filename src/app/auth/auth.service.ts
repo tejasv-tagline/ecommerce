@@ -11,7 +11,6 @@ export class AuthService {
   public userData: any;
   public allUsersData: any;
   public singleUserData: any;
-  // public userData!: Observable<firebase.User>;
   constructor(
     private angularFireAuth: AngularFireAuth,
     private router: Router,

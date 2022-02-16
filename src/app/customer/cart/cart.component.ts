@@ -101,7 +101,6 @@ export class CartComponent implements OnInit {
       this.userProfile = this.allProfiles.find(
         (element: any) => element.userid == localStorage.getItem('userid')
       );
-      console.log('this.userProfile :>> ', this.userProfile);
     });
   }
 }

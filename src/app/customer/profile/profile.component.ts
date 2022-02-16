@@ -15,17 +15,14 @@ export class ProfileComponent implements OnInit {
   constructor(private db:AngularFireDatabase,private profileService:ProfileService) {
     this.basePath=this.db.database.ref('/users')
     this.basePath.on('value',(data:any)=>{
-      console.log('data.val() :>> ', data.val());
       this.allUserProfile = Object.keys(data.val()).map((key) => {
         return {
           ...data.val()[key],
           userid: key,
         };
       });
-      console.log('this.allUserProfile :>> ', this.allUserProfile);
       this.userProfile=this.allUserProfile.find((element:any)=>
       element.userid===localStorage.getItem('userid'))
-      console.log('this.userProfile :>> ', this.userProfile);
     })
    }
 

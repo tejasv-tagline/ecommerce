@@ -77,7 +77,7 @@
                     </div>
                     <hr>
                 </div>
-                <form [formGroup]="myForm" class="p-3" (ngSubmit)="onSubmit()">
+                <form [formGroup]="myForm" class="p-3" (ngSubmit)="onSubmit(ownCartData.cartId)">
                     <h3 class="text-center mb-1">Please enter shipping details</h3>
                     <div class="formgroup">
                         <input type="text" class="form-control mt-2" placeholder="Enter your name"
@@ -96,7 +96,7 @@
                             formControlName="mobile">
                     </div>
                     <div class="text-center mt-2">
-                        <button type="submit" class="btn btn-primary">Place order</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Place order</button>
                     </div>
                 </form>
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../services/cart.service';
 import { OrderService } from '../services/order.service';
 
@@ -27,7 +28,8 @@ export class CartComponent implements OnInit {
     private db: AngularFireDatabase,
     private cartService: CartService,
     private fb: FormBuilder,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private toaster :ToastrService
   ) {
     this.basePath = this.db.database.ref('/cart');
     this.basePath.on('value', (data: any) => {
@@ -43,7 +45,6 @@ export class CartComponent implements OnInit {
       );
       this.cartLen=this.ownCartData.length;
       this.getOrderPrice();
-
     });
   }
 
@@ -72,7 +73,10 @@ export class CartComponent implements OnInit {
     this.cartService.removeProductFromCart(cartId);
   }
 
-  public onSubmit(): void {
-    this.orderService.makeOrder(this.myForm.value);
+  public onSubmit(cartId:string): void {
+    this.orderService.makeOrder(this.myForm.value).then(()=>{
+            this.toaster.success('Order placed !');
+    })
+    this.orderService.removeCart();
   }
 }

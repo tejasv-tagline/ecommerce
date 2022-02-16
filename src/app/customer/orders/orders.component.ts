@@ -23,7 +23,6 @@ export class OrdersComponent implements OnInit {
     this.basePath.on('value',(data:any)=>{
       this.fullCartValue=data.val().cartValue;
     })
-    console.log('this.fullCartValue :>> ', this.fullCartValue);
   }
 
 }

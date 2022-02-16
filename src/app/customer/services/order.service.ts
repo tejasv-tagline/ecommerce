@@ -53,11 +53,9 @@ export class OrderService {
           orderId: key,
         };
       });
-      console.log('allOrders:>> ', this.allOrders);
       this.ownOrders = this.allOrders.filter(
         (id: any) => id.userId == localStorage.getItem('userid')
         );
-      console.log('this.ownOrders :>> ', this.ownOrders);
     });
   }
 }

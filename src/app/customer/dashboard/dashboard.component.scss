@@ -1,13 +1,14 @@
 .custom-card{
+    border-radius: 8px;
     background-color: rgb(236, 235, 235);
     max-height: 20rem;
     width: 30rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-// .custom-card:hover{
-//     transform:scale(1.05);
-//     transition:0.4s;
-// }
+.custom-card:hover{
+    transform:scale(1.02);
+    transition:0.2s;
+}
 
 .card-img-top{
     height:250px;

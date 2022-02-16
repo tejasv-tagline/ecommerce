@@ -2,7 +2,7 @@
 <div class="container-fluid d-flex flex-wrap">
 <div class="row custom-card m-3" *ngFor="let product of allProducts">
     <div class="col-sm-4 p-0">
-        <img class="card-img-top" src="../../../assets/product2.jpeg" alt="Product image">
+        <img class="card-img-top" src="{{product.image}}" alt="Product image">
     </div>
     <div class="col-sm-8 mt-3">
         <h5 class="card-title">{{product.title}}</h5>

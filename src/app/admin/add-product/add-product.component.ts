@@ -28,7 +28,11 @@ export class AddProductComponent implements OnInit {
 
   public onSubmit(): void {
     const basePath = this.db.database.ref('/products');
-    basePath.push(this.myForm.value);
+    const productData = {
+      ...this.myForm.value,
+      image:''
+    }
+    basePath.push(productData);
     this.toaster.success('Product added ..!');
   }
 }

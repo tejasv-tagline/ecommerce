@@ -37,7 +37,7 @@
           <ng-container *ngFor="let cart of fullCartValue">
               <div class="row">
                   <div class="col-sm-4">
-                      <img src="../../../assets/product2.jpeg" alt="">
+                      <img src="{{cart.image}}" alt="Product Image">
                   </div>
                   <div class="col-sm-8">
                       <p>price : {{cart.price}}</p>

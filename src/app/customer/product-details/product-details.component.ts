@@ -43,7 +43,6 @@ export class ProductDetailsComponent implements OnInit {
     const productData = {
       ...this.finalProductDetails,
     };
-    console.log('productData :>> ', productData);
     this.cartService.checkCartProducts(productId,productData);
   }
 }

@@ -72,6 +72,7 @@ export class AuthService {
               localStorage.setItem('userid', this.singleUserData.push_key);
               this.router.navigate(['customer']);
             } else {
+              localStorage.setItem('userid', this.singleUserData.push_key);
               this.router.navigate(['admin']);
             }
           });

@@ -7,7 +7,7 @@
         <div class="card-body" *ngFor="let data of ownCartData">
             <div class="row">
                 <div class="col-sm-2 custom-image">
-                    <img src="../../../assets/product2.jpeg" alt="Product image">
+                    <img src="{{data.image}}" alt="Product image">
                 </div>
                 <div class="col-sm-8 ps-3 pt-2">
                     <h5 class="card-title">{{data.title}}</h5>

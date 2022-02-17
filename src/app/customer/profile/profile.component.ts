@@ -32,14 +32,14 @@ export class ProfileComponent implements OnInit {
       this.userProfile = this.allUserProfile.find(
         (element: any) => element.userid === localStorage.getItem('userid')
       );
+    });
 
-      this.myForm = this.fb.group({
-        fName: [this.userProfile?.fName || ''],
-        lName: [this.userProfile?.lName || ''],
-        address: [this.userProfile?.address || ''],
-        pincode: [this.userProfile?.pincode || ''],
-        mobile: [this.userProfile?.mobile || ''],
-      });
+    this.myForm = this.fb.group({
+      fName: [this.userProfile?.fName || ''],
+      lName: [this.userProfile?.lName || ''],
+      address: [this.userProfile?.address || ''],
+      pincode: [this.userProfile?.pincode || ''],
+      mobile: [this.userProfile?.mobile || ''],
     });
   }
 

@@ -30,25 +30,25 @@
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputFirstName">First name</label>
-                                    <input class="form-control" formControlName="fName" type="text" placeholder="Enter your first name">
+                                    <input class="form-control" formControlName="fName" type="text" placeholder="Enter your first name" [value]="userProfile?.fName">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Last name</label>
-                                    <input class="form-control" formControlName="lName" type="text" placeholder="Enter your last name">
+                                    <input class="form-control" formControlName="lName" type="text" placeholder="Enter your last name" [value]="userProfile?.lName">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label class="small mb-1" for="inputAddress">Address</label>
-                                <input class="form-control" type="text" formControlName="address" placeholder="Enter your address">
+                                <input class="form-control" type="text" formControlName="address" placeholder="Enter your address" [value]="userProfile?.address">
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputOrgName">Pincode</label>
-                                    <input class="form-control" type="number" formControlName="pincode" placeholder="Enter your pincode">
+                                    <input class="form-control" type="number" formControlName="pincode" placeholder="Enter your pincode" [value]="userProfile?.pincode">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLocation">Mobile</label>
-                                    <input class="form-control" type="text" formControlName="mobile" placeholder="Enter your mobile number">
+                                    <input class="form-control" type="text" formControlName="mobile" placeholder="Enter your mobile number" [value]="userProfile?.mobile">
                                 </div>
                             </div>
                             <div class="mb-3">

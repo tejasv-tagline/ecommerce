@@ -25,7 +25,13 @@ export class ProfileService {
         (element: any) => element.userid == localStorage.getItem('userid')
       );
       return this.userProfile;
-      
     });
+  }
+
+  public updateProfile(myForm: any): void {
+    const basePath = this.db.database.ref(
+      '/users/' + localStorage.getItem('userid')
+    );
+    basePath.update(myForm);
   }
 }

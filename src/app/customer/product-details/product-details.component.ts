@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../services/cart.service';
 import { ProductService } from '../services/product.service';
 
@@ -19,7 +20,8 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private db: AngularFireDatabase,
-    private cartService: CartService
+    private cartService: CartService,
+    private toaster:ToastrService
   ) {
     this.id = this.activatedRoute.snapshot.params['push_key'];
     this.basePath = this.db.database.ref('/products/' + this.id);
@@ -44,5 +46,6 @@ export class ProductDetailsComponent implements OnInit {
       ...this.finalProductDetails,
     };
     this.cartService.checkCartProducts(productId,productData);
+    this.toaster.show(this.productDetails.title+' was added to your cart');
   }
 }

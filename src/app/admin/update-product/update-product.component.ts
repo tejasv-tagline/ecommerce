@@ -38,7 +38,7 @@ export class UpdateProductComponent implements OnInit {
   this.setvalueForm();
   }
 
-  setvalueForm(){
+  public setvalueForm():void{
     this.myForm = this.fb.group({
       title: [this.formData?.title || ''],
       description: [this.formData?.description || ''],

@@ -27,4 +27,11 @@ export class AdminProfileService {
       return this.userProfile;
     });
   }
+
+  public updateProfile(myForm: any): void {
+    const basePath = this.db.database.ref(
+      '/users/' + localStorage.getItem('userid')
+    );
+    basePath.update(myForm);
+  }
 }

@@ -11,7 +11,7 @@ export class CustomerHeaderComponent implements OnInit {
   public allCarts: any;
   public cartLength: any;
   public cartBadge: any = [];
-  public cartBadgeLength!:number;
+  public cartBadgeLength!: number;
 
   constructor(private db: AngularFireDatabase) {
     this.basePath = this.db.database.ref('/cart');
@@ -26,11 +26,11 @@ export class CustomerHeaderComponent implements OnInit {
       this.cartLength = this.allCarts.filter(
         (cart: any) => cart.userid == localStorage.getItem('userid')
       );
-      this.cartBadge=[];
+      this.cartBadge = [];
       this.cartLength.forEach((element: any) => {
         this.cartBadge.push(element.qty);
       });
-      this.cartBadgeLength=eval(this.cartBadge.join('+'));
+      this.cartBadgeLength = eval(this.cartBadge.join('+'));
     });
   }
 

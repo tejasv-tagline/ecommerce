@@ -60,6 +60,10 @@ export class ProductDetailsComponent implements OnInit {
         productId: this.id,
       };
     });
+    this.productService.getProductDetails(this.id).then(()=>{
+      this.toaster.success('All product fetched successfully');
+      console.log('this.productService.productDetails :>> ', this.productService.productDetails);
+    });;
   }
 
   public getUserName():void{

@@ -15,6 +15,7 @@ export class ProductService {
   public userId=localStorage.getItem('userid');
   public reviewUserName:any;
   public starsArray:any=[];
+  public fullCartValue:any;
 
   constructor(private db: AngularFireDatabase,public toaster:ToastrService) {
     this.basePath = this.db.database.ref('/products');
@@ -81,36 +82,79 @@ export class ProductService {
     })
   }
 
-  // public getProductDetails(productId: string):void {
-  //     this.basePath.on('value', (data: any) => {
-  //       this.productDetails = data.val();
-  //       this.getAllReviews(productId);
-  //       this.getUserName();
-  //       this.finalProductDetails = {
-  //         ...this.productDetails,
-  //         qty: 1,
-  //         productId: productId,
-  //       };
-  //     });
-  //   return this.productDetails;
-  // }
+  public getProductDetails(productId: string):any {
+    return new Promise<void> ((resolve,reject)=>{
+      const basePath=this.db.database.ref('/products/'+productId);
+      basePath.on('value', (data: any) => {
+        this.productDetails = data.val();
+        console.log('this.productDetails :>> ', this.productDetails);
+        this.getAllReviews(productId);
+        this.getUserName();
+        this.finalProductDetails = {
+          ...this.productDetails,
+          qty: 1,
+          productId: productId,
+        };
+      });
+      resolve();
+      reject('not done')
+    })
+      
+  }
 
-  // public getAllReviews(productId:string):void{
-  //   const basePath = this.db.database.ref(
-  //     '/products/' + productId + '/reviews'
-  //   );
-  //   basePath.on('value', (data?: any) => {
-  //     var review = data?.val();
-  //     if (review) {
+  // this.basePath.on('value', (data: any) => {
+  //   this.productDetails = data.val();
+  //   const basePath=this.db.database.ref('/products/'+this.id+'/reviews')
+  //   basePath.on('value',(data?:any)=>{
+  //     var review=data?.val();
+  //     if(review){
   //       this.productReviews = Object.keys(review).map((key) => {
   //         return {
   //           ...data.val()[key],
   //           reviewId: key,
   //         };
   //       });
-  //       // console.log('this.productReviews :>> ', this.productReviews);
   //     }
-  //   });
-  // }
-  // public getUserName(): void {}
+
+  //     })
+  //   this.getUserName();
+  //   this.finalProductDetails = {
+  //     ...this.productDetails,
+  //     qty: 1,
+  //     productId: this.id,
+  //   };
+  // });
+
+
+
+
+  public getAllReviews(productId:string):void{
+    const basePath = this.db.database.ref(
+      '/products/' + productId + '/reviews'
+    );
+    basePath.on('value', (data?: any) => {
+      var review = data?.val();
+      if (review) {
+        this.productReviews = Object.keys(review).map((key) => {
+          return {
+            ...data.val()[key],
+            reviewId: key,
+          };
+        });
+        // console.log('this.productReviews :>> ', this.productReviews);
+      }
+    });
+  }
+
+
+
+  public getUserName(): void {}
+
+  public returnProduct(orderId:string,productId:string):void{
+    const basePath=this.db.database.ref('/orders/'+orderId)
+    this.basePath.on('value',(data:any)=>{
+      this.fullCartValue=data.val().cartValue;
+    })
+    console.log('this.fullCartValue :>> ', this.fullCartValue);
+  }
 }

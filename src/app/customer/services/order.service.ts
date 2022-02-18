@@ -106,9 +106,10 @@ export class OrderService {
             orderId: key,
           };
         });
-        this.ownOrders = this.allOrders.filter(
+        const ownOrdersInAsc = this.allOrders.filter(
           (id: any) => id.userId == localStorage.getItem('userid')
         );
+        this.ownOrders=ownOrdersInAsc.reverse();
       });
       resolve();
       reject('Not done');

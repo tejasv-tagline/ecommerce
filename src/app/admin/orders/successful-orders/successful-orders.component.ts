@@ -14,12 +14,13 @@ export class SuccessfulOrdersComponent implements OnInit {
   constructor(private db: AngularFireDatabase) {
     this.basePath = this.db.database.ref('/orders');
     this.basePath.on('value', (data: any) => {
-      this.allOrders = Object.keys(data.val()).map((key) => {
+      var allOrdersInAsc = Object.keys(data.val()).map((key) => {
         return {
           ...data.val()[key],
           productId: key,
         };
       });
+      this.allOrders=allOrdersInAsc.reverse();
     });
   }
 

@@ -1,3 +1,18 @@
-.row {
+.c-row {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.c-product-image img{
+  max-height: 350px;
+}
+// .c-review-box{
+//   height:10px
+// }
+.c-review-button{
+  max-height: 50px;
+}
+.c-height-form-control{
+  height: 50px;
+}
+.c-font-size{
+  font-size: 15px;
 }

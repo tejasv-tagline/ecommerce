@@ -16,12 +16,17 @@ export class ProductDetailsComponent implements OnInit {
   public productDetails: any;
   public pushProductToCart: any;
   public finalProductDetails: any;
+  public productReviews: any;
+  public userName:any;
+  public reviewUserName!:any;
+  public starsArray:any=[]
+  public userId=localStorage.getItem('userid');
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private db: AngularFireDatabase,
     private cartService: CartService,
-    private toaster:ToastrService
+    private toaster: ToastrService
   ) {
     this.id = this.activatedRoute.snapshot.params['push_key'];
     this.basePath = this.db.database.ref('/products/' + this.id);
@@ -33,6 +38,20 @@ export class ProductDetailsComponent implements OnInit {
   public getProductDetails(): void {
     this.basePath.on('value', (data: any) => {
       this.productDetails = data.val();
+      const basePath=this.db.database.ref('/products/'+this.id+'/reviews')
+      basePath.on('value',(data?:any)=>{
+        var review=data?.val();
+        if(review){
+          this.productReviews = Object.keys(review).map((key) => {
+            return {
+              ...data.val()[key],
+              reviewId: key,
+            };
+          });
+        }
+
+        })
+      this.getUserName();
       this.finalProductDetails = {
         ...this.productDetails,
         qty: 1,
@@ -41,12 +60,55 @@ export class ProductDetailsComponent implements OnInit {
     });
   }
 
-  public addToCart(productId:string): void {
+  public getUserName():void{
+    this.productReviews?.forEach((i:any)=>{
+      var basePath=this.db.database.ref('/users/'+i.userid)
+      basePath.on('value',(data?:any)=>{
+        this.userName=data.val()?.fName;
+      })
+    })
+  }
+
+  public addToCart(productId: string): void {
     const productData = {
       ...this.finalProductDetails,
     };
-    this.cartService.checkCartProducts(productId,productData);
-    this.toaster.show(this.productDetails.title+' was added to your cart','',{positionClass:'toast-bottom-center'});
+    this.cartService.checkCartProducts(productId, productData);
+    this.toaster.show(
+      this.productDetails.title + ' was added to your cart',
+      '',
+      { positionClass: 'toast-bottom-center' }
+    );
     // this.toaster.show('was added to your cart',this.productDetails.title,{positionClass: 'toast-bottom-center'})
+  }
+
+  public submitReview(review: string, stars: any): void {
+    const userPath=this.db.database.ref('/users/'+this.userId);
+    userPath.on('value',(data:any)=>{
+      this.reviewUserName=data.val();
+      const basePath = this.db.database.ref('/products/' + this.id + '/reviews');
+      this.starsArray=[];
+      for(var i=0;i<stars;i++){
+        this.starsArray.push(i)
+      }
+      const reviewData = {
+        review,
+        stars:this.starsArray,
+        userName: this.reviewUserName.fName+ ' '+ this.reviewUserName.lName,
+        userid:this.userId
+      };
+      // console.log('this.productReviews :>> ', this.productReviews);
+      const checkReview=this.productReviews?.find((element:any)=>
+        element.userid==this.userId
+      )
+      console.log('object :>> ', reviewData);
+      if(checkReview){
+        this.toaster.error('You have already submitted another review')
+      }
+      else{
+        basePath.push(reviewData);
+        this.toaster.success('Review added')
+      }
+    })
   }
 }

@@ -20,7 +20,15 @@ export class AuthService {
     this.userData = angularFireAuth.authState;
   }
 
-  public signUp(email: string, password: string,fName:string,lName:string,address:string,mobile:number,pincode:number): void {
+  public signUp(
+    email: string,
+    password: string,
+    fName: string,
+    lName: string,
+    address: string,
+    mobile: number,
+    pincode: number
+  ): void {
     this.angularFireAuth
       .createUserWithEmailAndPassword(email, password)
       .then((res: any) => {
@@ -30,12 +38,12 @@ export class AuthService {
             const data = {
               email: res.user?.multiFactor?.user?.email,
               role: 'customer',
-              fName:fName,
-              lName:lName,
-              address:address,
-              mobile:mobile,
-              pincode:pincode,
-              image:''
+              fName: fName,
+              lName: lName,
+              address: address,
+              mobile: mobile,
+              pincode: pincode,
+              image: '',
             };
             basePath.push(data);
             this.router.navigate(['dashboard']);
@@ -49,7 +57,6 @@ export class AuthService {
       .catch((err) => {
         this.toaster.error(err);
       });
-
   }
 
   public login(email: string, password: string): void {
@@ -72,7 +79,7 @@ export class AuthService {
               };
             });
             this.singleUserData = this.allUsersData.find(
-              (e: any) => e.email == email
+              (e: any) => e.email === email
             );
             if (this.singleUserData.role === 'customer') {
               localStorage.setItem('userid', this.singleUserData.push_key);

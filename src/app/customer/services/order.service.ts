@@ -41,7 +41,7 @@ export class OrderService {
         };
       });
       this.ownCartData = this.fullCartDataArray.filter(
-        (cart: any) => cart.userid == localStorage.getItem('userid')
+        (cart: any) => cart.userid === localStorage.getItem('userid')
       );
     });
   }
@@ -68,7 +68,7 @@ export class OrderService {
         };
       });
       this.ownCartToRemove = this.fullCartDataArray.filter(
-        (cart: any) => cart.userid == localStorage.getItem('userid')
+        (cart: any) => cart.userid === localStorage.getItem('userid')
       );
     });
   }
@@ -107,7 +107,7 @@ export class OrderService {
           };
         });
         const ownOrdersInAsc = this.allOrders.filter(
-          (id: any) => id.userId == localStorage.getItem('userid')
+          (id: any) => id.userId === localStorage.getItem('userid')
         );
         this.ownOrders=ownOrdersInAsc.reverse();
       });

@@ -117,7 +117,7 @@ export class CartService {
         };
       });
       this.ownCartData = this.fullCartDataArray.filter(
-        (cart: any) => cart.userid == localStorage.getItem('userid')
+        (cart: any) => cart.userid === localStorage.getItem('userid')
       );
       this.getOrderPrice();
     });
@@ -128,7 +128,7 @@ export class CartService {
     // Used to plus or minus quantity from cart
     this.getOwnCart();
     this.changedCartData = this.ownCartData.find(
-      (e: any) => e.cartId == cartId
+      (e: any) => e.cartId === cartId
     );
 
     this.baseCartPath = this.db.database.ref(
@@ -219,7 +219,7 @@ export class CartService {
         };
       });
       this.ownCartData = this.fullCartDataArray.filter(
-        (cart: any) => cart.userid == localStorage.getItem('userid')
+        (cart: any) => cart.userid === localStorage.getItem('userid')
       );
       this.getcartLength = this.ownCartData.length;
     });

@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
 
   public addToCart(productId: string): void {
     this.productDetails = this.allProducts.find(
-      (e: any) => e.productId == productId
+      (e: any) => e.productId === productId
     );
     const cartProduct = {
       ...this.productDetails,

@@ -44,7 +44,7 @@ export class CartComponent implements OnInit {
         };
       });
       this.ownCartData = this.fullCartDataArray.filter(
-        (cart: any) => cart.userid == localStorage.getItem('userid')
+        (cart: any) => cart.userid === localStorage.getItem('userid')
       );
       this.cartLen = this.ownCartData.length;
       this.getOrderPrice();
@@ -77,12 +77,14 @@ export class CartComponent implements OnInit {
   }
 
   public onSubmit(cartId: string): void {
-    const formData={
-      name:this.myForm.value.name || this.userProfile?.fName + this.userProfile?.lName ,
-      address:this.myForm.value.address || this.userProfile?.address,
-      pincode:this.myForm.value.pincode || this.userProfile?.pincode,
-      mobile:this.myForm.value.mobile || this.userProfile?.mobile
-    }
+    const formData = {
+      name:
+        this.myForm.value.name ||
+        this.userProfile?.fName + this.userProfile?.lName,
+      address: this.myForm.value.address || this.userProfile?.address,
+      pincode: this.myForm.value.pincode || this.userProfile?.pincode,
+      mobile: this.myForm.value.mobile || this.userProfile?.mobile,
+    };
     this.orderService.makeOrder(formData).then(() => {
       this.toaster.success('Order placed !');
     });
@@ -90,7 +92,7 @@ export class CartComponent implements OnInit {
   }
 
   public getFormValue(): void {
-    const basePath=this.db.database.ref('/users/')
+    const basePath = this.db.database.ref('/users/');
     basePath.on('value', (data: any) => {
       this.allProfiles = Object.keys(data.val()).map((key) => {
         return {
@@ -99,7 +101,7 @@ export class CartComponent implements OnInit {
         };
       });
       this.userProfile = this.allProfiles.find(
-        (element: any) => element.userid == localStorage.getItem('userid')
+        (element: any) => element.userid === localStorage.getItem('userid')
       );
     });
   }

@@ -22,7 +22,7 @@ export class AdminProfileService {
         };
       });
       this.userProfile = this.allProfiles.find(
-        (element: any) => element.userid == localStorage.getItem('userid')
+        (element: any) => element.userid === localStorage.getItem('userid')
       );
       return this.userProfile;
     });

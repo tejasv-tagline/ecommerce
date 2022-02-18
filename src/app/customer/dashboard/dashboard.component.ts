@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private db: AngularFireDatabase,
     private cartService: CartService,
-    private toaster:ToastrService
+    private toaster: ToastrService
   ) {
     this.basePath = this.db.database.ref('/products');
     this.basePath.on('value', (data: any) => {
@@ -42,7 +42,12 @@ export class DashboardComponent implements OnInit {
       ...this.productDetails,
       qty: 1,
     };
-    this.cartService.checkCartProducts(productId,cartProduct);
-    this.toaster.show(this.productDetails.title+' was added to your cart');
+    this.cartService.checkCartProducts(productId, cartProduct);
+    // this.toaster.show(this.productDetails.title+' was added to your cart');
+    this.toaster.show(
+      this.productDetails.title + ' was added to your cart',
+      '',
+      { positionClass: 'toast-bottom-center' }
+    );
   }
 }

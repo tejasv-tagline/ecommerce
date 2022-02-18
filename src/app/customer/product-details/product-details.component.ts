@@ -46,6 +46,7 @@ export class ProductDetailsComponent implements OnInit {
       ...this.finalProductDetails,
     };
     this.cartService.checkCartProducts(productId,productData);
-    this.toaster.show(this.productDetails.title+' was added to your cart');
+    this.toaster.show(this.productDetails.title+' was added to your cart','',{positionClass:'toast-bottom-center'});
+    // this.toaster.show('was added to your cart',this.productDetails.title,{positionClass: 'toast-bottom-center'})
   }
 }

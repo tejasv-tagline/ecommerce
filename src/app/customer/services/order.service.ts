@@ -1,5 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import {
+  getDatabase,
+  ref,
+  query,
+  onValue,
+  orderByValue,
+  orderByChild,
+  orderByKey
+} from 'firebase/database';
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +56,7 @@ export class OrderService {
       });
       resolve(true);
     });
-      }
+  }
 
   public getCartToRemove(): void {
     this.cartBasePath.on('value', (data: any) => {
@@ -63,23 +72,33 @@ export class OrderService {
       );
     });
   }
-  
+
   public removeCart(): any {
-    return new Promise<any>((resolve,reject)=>{
+    return new Promise<any>((resolve, reject) => {
       this.getCartToRemove();
-      this.ownCartToRemove.forEach((element:any)=>{
-        const baseP=this.db.database.ref('/cart/'+ element.cartId)
+      this.ownCartToRemove.forEach((element: any) => {
+        const baseP = this.db.database.ref('/cart/' + element.cartId);
         baseP.remove();
-      })
-      const basePath=this.db.database.ref('/cart/'+this.ownCartToRemove.cartId);
-      basePath.on('value',(data:any)=>{
-      })
+      });
+      const basePath = this.db.database.ref(
+        '/cart/' + this.ownCartToRemove.cartId
+      );
+      basePath.on('value', (data: any) => {});
       resolve(true);
-    })
+    });
   }
 
   public getCutomerOwnOrders(): any {
-    return new Promise<void>((resolve,reject)=>{
+    // const db = getDatabase();
+    // const starCountRef = ref(db, '/orders');
+    // const topUserPostsRef = query(starCountRef,orderByChild("address"));
+
+    // onValue(topUserPostsRef, (snapshot) => {
+    //   const data = snapshot.val();
+    //   console.log('data :>> ', data);
+    // });
+
+    return new Promise<void>((resolve, reject) => {
       this.basePath.on('value', (data: any) => {
         this.allOrders = Object.keys(data.val()).map((key) => {
           return {
@@ -92,7 +111,7 @@ export class OrderService {
         );
       });
       resolve();
-      reject('Not done')
-    })
+      reject('Not done');
+    });
   }
 }

@@ -26,11 +26,11 @@ export class CustomerHeaderComponent implements OnInit {
       this.cartLength = this.allCarts.filter(
         (cart: any) => cart.userid == localStorage.getItem('userid')
       );
-      this.cartBadge = [];
-      this.cartLength.forEach((element: any) => {
-        this.cartBadge.push(element.qty);
-      });
-      this.cartBadgeLength = eval(this.cartBadge.join('+'));
+      // this.cartBadge = [];
+      // this.cartLength.forEach((element: any) => {
+      //   this.cartBadge.push(element.qty);
+      // });
+      // this.cartBadgeLength = eval(this.cartBadge.join('+'));
     });
   }
 

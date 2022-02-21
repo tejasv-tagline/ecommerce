@@ -2,7 +2,7 @@
     border-radius: 8px;
     background-color: rgb(236, 235, 235);
     max-height: 20rem;
-    width: 30rem;
+    width: 32rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .custom-card:hover{
@@ -11,6 +11,7 @@
 }
 
 .card-img-top{
+    padding:10px;
     height:250px;
     width: 100%
 }

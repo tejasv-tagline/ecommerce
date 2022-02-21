@@ -62,7 +62,6 @@ export class ProductDetailsComponent implements OnInit {
     });
     this.productService.getProductDetails(this.id).then(()=>{
       this.toaster.success('All product fetched successfully');
-      console.log('this.productService.productDetails :>> ', this.productService.productDetails);
     });;
   }
 

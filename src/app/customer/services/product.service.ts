@@ -87,7 +87,6 @@ export class ProductService {
       const basePath=this.db.database.ref('/products/'+productId);
       basePath.on('value', (data: any) => {
         this.productDetails = data.val();
-        console.log('this.productDetails :>> ', this.productDetails);
         this.getAllReviews(productId);
         this.getUserName();
         this.finalProductDetails = {
